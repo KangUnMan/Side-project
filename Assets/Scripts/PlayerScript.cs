@@ -18,8 +18,11 @@ public class PlayerScript : MonoBehaviourPunCallbacks
     bool isGround;
     bool SDown;
     bool jDown;
+    bool RollingKey;
     bool isJump;
+    bool isRolling;
     Vector3 moveVec;
+    Vector3 RollingVec;
     private Transform tr;
     void Awake()
     {
@@ -43,10 +46,13 @@ public class PlayerScript : MonoBehaviourPunCallbacks
             float ver = Input.GetAxis("Vertical");
             SDown = Input.GetButton("Sprint");
             jDown = Input.GetButtonDown("Jump");
-
+            RollingKey = Input.GetButtonDown("Rolling");
 
             moveVec = new Vector3(axis, 0, ver).normalized;
-
+            if(isRolling)
+            {
+                moveVec = RollingVec;
+            }
             if (SDown)
             {
                 transform.position += moveVec * speed * 1.5f * Time.deltaTime;
@@ -61,7 +67,14 @@ public class PlayerScript : MonoBehaviourPunCallbacks
             if (axis != 0 || ver != 0)
             {
                 AN.SetBool("isRun", true);
-                
+                if (jDown && isJump)
+                {
+                    RB.AddForce(Vector3.up * 5, ForceMode.Impulse);
+                    AN.SetBool("isJump", true);
+                    AN.SetTrigger("doRunJump");
+                    isJump = false;
+                }
+
             }
             else AN.SetBool("isRun", false);
 
@@ -75,14 +88,8 @@ public class PlayerScript : MonoBehaviourPunCallbacks
             }
 
             //¹Ù´ÚÃ¼Å©
-
-            if (jDown && isJump)
-            {
-                RB.AddForce(Vector3.up * 7, ForceMode.Impulse);
-                AN.SetBool("isJump", true);
-                AN.SetTrigger("doJump");
-                isJump = false;
-            }
+            jump();
+            Rolling();
         }
     }
 
@@ -95,4 +102,34 @@ public class PlayerScript : MonoBehaviourPunCallbacks
         }
     }
 
+    void jump()
+    {
+        if (jDown && moveVec == Vector3.zero && isJump && !isRolling)
+        {
+            RB.AddForce(Vector3.up * 5, ForceMode.Impulse);
+            AN.SetBool("isJump", true);
+            AN.SetTrigger("doJump");
+            isJump = false;
+        }
+    }
+
+    void Rolling()
+    {
+        if (RollingKey && moveVec !=Vector3.zero && !isJump && !isRolling)
+        {
+            RollingVec = moveVec;
+            speed *= 2;
+            AN.SetTrigger("doRolling");
+            isRolling = true;
+            isJump = false;
+
+            Invoke("RollingOut", 0.6f);
+        }
+    }
+
+    void RollingOut()
+    {
+        speed *= 0.5f;
+        isRolling = false;
+    }
 }
