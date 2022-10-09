@@ -12,7 +12,7 @@ public class PlayerScript : MonoBehaviourPunCallbacks
     public Animator AN;
     public SpriteRenderer SR;
     public PhotonView PV;
-    public Text NickNameText;
+    public TMPro.TMP_Text NickNameText;
     public GameObject Player;
     public GameObject underWare;
     public float speed = 10.0f;
@@ -30,6 +30,7 @@ public class PlayerScript : MonoBehaviourPunCallbacks
     void Awake()
     {
         //닉네임 설정
+        NickNameText.text = photonView.Owner.NickName;
         NickNameText.text = PV.IsMine ? PhotonNetwork.NickName : PV.Owner.NickName; //자신의 닉네임과 상대방의 닉네임 구별
         NickNameText.color = PV.IsMine ? Color.black : Color.red; //자기 자신이면 블랙 상대일경우 레드
 
