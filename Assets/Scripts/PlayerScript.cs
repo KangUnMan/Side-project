@@ -14,6 +14,7 @@ public class PlayerScript : MonoBehaviourPunCallbacks
     public PhotonView PV;
     public Text NickNameText;
     public GameObject Player;
+    public GameObject underWare;
     public float speed = 10.0f;
     bool isGround;
     bool SDown;
@@ -23,7 +24,9 @@ public class PlayerScript : MonoBehaviourPunCallbacks
     bool isRolling;
     Vector3 moveVec;
     Vector3 RollingVec;
+    public Material[] playerMt;
     private Transform tr;
+    private int idxMt = -1;
     void Awake()
     {
         //닉네임 설정
@@ -53,6 +56,7 @@ public class PlayerScript : MonoBehaviourPunCallbacks
             {
                 moveVec = RollingVec;
             }
+
             if (SDown)
             {
                 transform.position += moveVec * speed * 1.5f * Time.deltaTime;
@@ -80,15 +84,7 @@ public class PlayerScript : MonoBehaviourPunCallbacks
 
             AN.SetBool("isSprint", SDown);
 
-            //닉네임 바 같이 회전
-            float yxis = Player.transform.eulerAngles.y;
-            if (yxis == 90)
-            {
-                NickNameText.transform.eulerAngles = new Vector3(0, -yxis, 0);
-            }
-
-            //바닥체크
-            jump();
+            Jump();
             Rolling();
         }
     }
@@ -100,9 +96,26 @@ public class PlayerScript : MonoBehaviourPunCallbacks
         {
             isJump = true;
         }
-    }
+        string coll = collision.gameObject.name;
+        switch (coll)
+        {
+            case "item_1":
+                idxMt = 0;
+                PV.RPC(nameof(SetMt), RpcTarget.AllViaServer, 0);
+                break;
+            case "item_2":
+                idxMt = 1;
+                PV.RPC(nameof(SetMt), RpcTarget.AllViaServer, 1);
+                break;
+            case "item_3":
+                idxMt = 2;
+                PV.RPC(nameof(SetMt), RpcTarget.AllViaServer, 2);
+                break;
 
-    void jump()
+        }
+    }
+    //점프 메소드
+    void Jump()
     {
         if (jDown && moveVec == Vector3.zero && isJump && !isRolling)
         {
@@ -112,7 +125,7 @@ public class PlayerScript : MonoBehaviourPunCallbacks
             isJump = false;
         }
     }
-
+    //구르기 메소드
     void Rolling()
     {
         if (RollingKey && moveVec !=Vector3.zero && !isJump && !isRolling)
@@ -126,10 +139,26 @@ public class PlayerScript : MonoBehaviourPunCallbacks
             Invoke("RollingOut", 0.6f);
         }
     }
-
+    //구르기시 속도와 체크
     void RollingOut()
     {
         speed *= 0.5f;
         isRolling = false;
+    }
+
+
+
+    [PunRPC]
+    private void SetMt(int idx)
+    {
+        underWare.GetComponent<Renderer>().material = playerMt[idx];
+    }
+
+    public override void OnPlayerEnteredRoom(Player newPlayer) //방에 들어오기전 상대플레이어가 색을 바꿨을경우 동기화 메소드
+    {
+        if(PV.IsMine && idxMt != -1)
+        {
+            PV.RPC(nameof(SetMt), newPlayer, idxMt);
+        }
     }
 }
