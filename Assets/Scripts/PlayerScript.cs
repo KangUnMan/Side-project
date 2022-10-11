@@ -100,15 +100,15 @@ public class PlayerScript : MonoBehaviourPunCallbacks
         string coll = collision.gameObject.name;
         switch (coll)
         {
-            case "item_1":
+            case "Item_1":
                 idxMt = 0;
                 PV.RPC(nameof(SetMt), RpcTarget.AllViaServer, 0);
                 break;
-            case "item_2":
+            case "Item_2":
                 idxMt = 1;
                 PV.RPC(nameof(SetMt), RpcTarget.AllViaServer, 1);
                 break;
-            case "item_3":
+            case "Item_3":
                 idxMt = 2;
                 PV.RPC(nameof(SetMt), RpcTarget.AllViaServer, 2);
                 break;
@@ -147,12 +147,16 @@ public class PlayerScript : MonoBehaviourPunCallbacks
         isRolling = false;
     }
 
-
+    public void InitColor(int num)
+    {
+        PV.RPC(nameof(SetMt), RpcTarget.AllViaServer, num);
+    }
 
     [PunRPC]
     private void SetMt(int idx)
     {
         underWare.GetComponent<Renderer>().material = playerMt[idx];
+        idxMt = idx;
     }
 
     public override void OnPlayerEnteredRoom(Player newPlayer) //방에 들어오기전 상대플레이어가 색을 바꿨을경우 동기화 메소드
