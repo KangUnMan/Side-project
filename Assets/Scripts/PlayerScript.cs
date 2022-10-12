@@ -11,6 +11,7 @@ public class PlayerScript : MonoBehaviourPunCallbacks
     public Rigidbody RB;
     public Animator AN;
     public SpriteRenderer SR;
+    public bool Death;
     public PhotonView PV;
     public TMPro.TMP_Text NickNameText;
     public GameObject Player;
@@ -115,6 +116,8 @@ public class PlayerScript : MonoBehaviourPunCallbacks
 
         }
     }
+
+     
     //점프 메소드
     void Jump()
     {
@@ -139,6 +142,12 @@ public class PlayerScript : MonoBehaviourPunCallbacks
 
             Invoke("RollingOut", 0.6f);
         }
+    }
+
+    void DeathEvent()
+    {
+        AN.SetTrigger("doDeath");
+        Death = true;
     }
     //구르기시 속도와 체크
     void RollingOut()
