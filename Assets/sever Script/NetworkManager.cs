@@ -8,7 +8,7 @@ using TMPro;
 public class NetworkManager : MonoBehaviourPunCallbacks
 {
     public TMPro.TMP_InputField NickNameInput;
-    public GameObject DisconnectPnl;
+    public GameObject LoadingtPnl;
     public GameObject RespawnPanel;
     private readonly string gameVersion = "v1.0"; // readonly 속성은 bool 속성임
 
@@ -36,17 +36,18 @@ public class NetworkManager : MonoBehaviourPunCallbacks
     }
     public override void OnJoinedRoom() // 방에 입장했을때 호출됨
     {
-        DisconnectPnl.SetActive(false); // 패널 안보이게
+        LoadingtPnl.SetActive(false); // 패널 안보이게
 
-        if(PhotonNetwork.IsMasterClient)
+        if(PhotonNetwork.IsMasterClient) //방장만
         {
-            PhotonNetwork.LoadLevel("Stage 1");
+            PhotonNetwork.LocalPlayer.NickName += "(★)";
+            PhotonNetwork.LoadLevel("Stage 1");  //씬 이동
         }
     }
 
     public override void OnConnectedToMaster()
     {
-        DisconnectPnl.SetActive(false);
+        LoadingtPnl.SetActive(false);
         RespawnPanel.SetActive(true);
     }
     void Update()
@@ -57,7 +58,7 @@ public class NetworkManager : MonoBehaviourPunCallbacks
 
     public override void OnDisconnected(DisconnectCause cause) //Photon 서버 와의 연결을 끊은 후 호출
     {
-        DisconnectPnl.SetActive(true); 
+        LoadingtPnl.SetActive(true); 
         RespawnPanel.SetActive(false);
         PhotonNetwork.ConnectUsingSettings();
     }

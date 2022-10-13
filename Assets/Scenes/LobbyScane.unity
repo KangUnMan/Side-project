@@ -1044,7 +1044,7 @@ GameObject:
   - component: {fileID: 407228089}
   - component: {fileID: 407228088}
   m_Layer: 5
-  m_Name: DisconnectPnl
+  m_Name: loadingPnl
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -1404,7 +1404,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   NickNameInput: {fileID: 5504130}
-  DisconnectPnl: {fileID: 407228086}
+  LoadingtPnl: {fileID: 407228086}
   RespawnPanel: {fileID: 74061829}
 --- !u!1 &1492978883
 GameObject:
@@ -2291,7 +2291,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 0
+  m_IsActive: 1
 --- !u!137 &6995679451613629486
 SkinnedMeshRenderer:
   m_ObjectHideFlags: 0
@@ -4652,7 +4652,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 0
+  m_IsActive: 1
 --- !u!137 &6995679452649343093
 SkinnedMeshRenderer:
   m_ObjectHideFlags: 0
@@ -5873,7 +5873,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 0
+  m_IsActive: 1
 --- !u!137 &6995679452930904689
 SkinnedMeshRenderer:
   m_ObjectHideFlags: 0
@@ -6344,7 +6344,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 0
+  m_IsActive: 1
 --- !u!137 &6995679453033868404
 SkinnedMeshRenderer:
   m_ObjectHideFlags: 0
@@ -7694,7 +7694,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 0
+  m_IsActive: 1
 --- !u!137 &6995679453431904566
 SkinnedMeshRenderer:
   m_ObjectHideFlags: 0
@@ -8240,7 +8240,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 0
+  m_IsActive: 1
 --- !u!137 &6995679453656468420
 SkinnedMeshRenderer:
   m_ObjectHideFlags: 0
