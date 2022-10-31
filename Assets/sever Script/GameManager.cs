@@ -20,7 +20,7 @@ public class GameManager : MonoBehaviour
     {
         if(instance = null){
             instance = this;
-            DontDestroyOnLoad(this.gameObject); //ÆÄ±«ÇÏÁö¾ÊÀ» °ÔÀÓ ¿ÀºêÁ§Æ®
+            DontDestroyOnLoad(this.gameObject); //íŒŒê´´í•˜ì§€ì•Šì„ ê²Œì„ ì˜¤ë¸Œì íŠ¸
         }
         else if (instance != null)
         {

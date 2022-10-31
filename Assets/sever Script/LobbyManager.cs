@@ -11,17 +11,17 @@ public class LobbyManager : MonoBehaviour
 
     private PhotonView pv;
 
-    private Hashtable CP; //ÇØ½¬ Å×ÀÌºí
+    private Hashtable CP; //í•´ì‰¬ í…Œì´ë¸”
 
-    public Material[] playerMt; // ¸ÅÅ×¸®¾ó °ªÀ» ÀúÀåÇÒ ¹è¿­
+    public Material[] playerMt; // ë§¤í…Œë¦¬ì–¼ ê°’ì„ ì €ì¥í•  ë°°ì—´
 
-    private Ray ray; //·¹ÀÌ¸¦ ³¯·Á¼­
+    private Ray ray; //ë ˆì´ë¥¼ ë‚ ë ¤ì„œ
 
     private new Camera camera;
 
-    private RaycastHit hit; //·¹ÀÌÀÇ Ãæµ¹ÀÌ ÀÏ¾î³µ´ÂÁö ¾Æ´ÑÁö °¨Áö
+    private RaycastHit hit; //ë ˆì´ì˜ ì¶©ëŒì´ ì¼ì–´ë‚¬ëŠ”ì§€ ì•„ë‹Œì§€ ê°ì§€
 
-    public Renderer UnderWare; // ÇÃ·¹ÀÌ¾î °³Ã¼
+    public Renderer UnderWare; // í”Œë ˆì´ì–´ ê°œì²´
 
     // Start is called before the first frame update
     void Start()
@@ -29,21 +29,21 @@ public class LobbyManager : MonoBehaviour
         pv = GetComponent<PhotonView>();
         camera = Camera.main;
 
-        PhotonNetwork.LocalPlayer.SetCustomProperties(new Hashtable { { "Color", -1 } }); // Å° ,°ªÀ¸·Î ÀúÀå  Ã£À»¶§ Å°°ªÁÖ¸é µÊ , Á¦ÀÏ ºü¸£´Ù°í ÇÑ´Ù.
+        PhotonNetwork.LocalPlayer.SetCustomProperties(new Hashtable { { "Color", -1 } }); // í‚¤ ,ê°’ìœ¼ë¡œ ì €ì¥  ì°¾ì„ë•Œ í‚¤ê°’ì£¼ë©´ ë¨ , ì œì¼ ë¹ ë¥´ë‹¤ê³  í•œë‹¤.
         CP = PhotonNetwork.LocalPlayer.CustomProperties;
     }
 
     // Update is called once per frame
     private void Update()
     {   
-        ray = camera.ScreenPointToRay(Input.mousePosition); // ·¹ÀÌ¸¦ Å¬¸¯ÇÑ Æ÷ÀÎÆ®¿¡
+        ray = camera.ScreenPointToRay(Input.mousePosition); // ë ˆì´ë¥¼ í´ë¦­í•œ í¬ì¸íŠ¸ì—
         
         if (Input.GetMouseButtonDown(0))
         {
             if (Physics.Raycast(ray, out hit , 1<<6))
             {
                 string item = hit.collider.gameObject.name;
-                string[] words = item.Split('_');          // ¹®Á¦¾øÀ½
+                string[] words = item.Split('_');          // ë¬¸ì œì—†ìŒ
                 SetColorProperty(int.Parse(words[1]));
             }
         }

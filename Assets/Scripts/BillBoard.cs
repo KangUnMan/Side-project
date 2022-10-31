@@ -13,6 +13,6 @@ public class BillBoard : MonoBehaviour
     // Update is called once per frame
     void Update() 
     {
-        transform.forward = Camera.main.transform.forward; //ī�޶� ����ٴϰ�
+        transform.forward = Camera.main.transform.forward; //카메라 따라다니게 하기
     }
 }

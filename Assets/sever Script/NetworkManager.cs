@@ -10,38 +10,38 @@ public class NetworkManager : MonoBehaviourPunCallbacks
     public TMPro.TMP_InputField NickNameInput;
     public GameObject LoadingtPnl;
     public GameObject RespawnPanel;
-    private readonly string gameVersion = "v1.0"; // readonly ¼Ó¼ºÀº bool ¼Ó¼ºÀÓ
+    private readonly string gameVersion = "v1.0"; // readonly ì†ì„±ì€ bool ì†ì„±ì„
 
-     void Awake()  // Awake()´Â °ÔÀÓÀÌ ½ÃÀÛµÇ±âÀü¿¡, ¸ğµç º¯¼ö¿Í °ÔÀÓ»óÅÂ¸¦ ÃÊ±âÈ­ÇÏ±âÀ§ÇØ¼­ È£ÃâµÊ (startº¸´Ù ºü¸£´Ù.)
-    {   // ¹æÀåÀÌ È¥ÀÚ ¾ÀÀ» ·ÎµùÇÏ¸é , ³ª¸ÓÁö »ç¶÷µéÀº ÀÚµ¿À¸·Î ½ÌÅ©°¡ µÊ
+     void Awake()  // Awake()ëŠ” ê²Œì„ì´ ì‹œì‘ë˜ê¸°ì „ì—, ëª¨ë“  ë³€ìˆ˜ì™€ ê²Œì„ìƒíƒœë¥¼ ì´ˆê¸°í™”í•˜ê¸°ìœ„í•´ì„œ í˜¸ì¶œë¨ (startë³´ë‹¤ ë¹ ë¥´ë‹¤.)
+    {   // ë°©ì¥ì´ í˜¼ì ì”¬ì„ ë¡œë”©í•˜ë©´ , ë‚˜ë¨¸ì§€ ì‚¬ëŒë“¤ì€ ìë™ìœ¼ë¡œ ì‹±í¬ê°€ ë¨
         PhotonNetwork.AutomaticallySyncScene = true;
 
-        // °ÔÀÓ ¹öÀü ÁöÁ¤
+        // ê²Œì„ ë²„ì „ ì§€ì •
         PhotonNetwork.GameVersion = gameVersion;
 
         Screen.SetResolution(960, 540, false);
-        // È­¸é Å©±â ¼³Á¤
-        PhotonNetwork.SendRate = 60; // ³ÖÀ¸¸é ¼­¹ö µ¿±âÈ­°¡ ´õ »¡¸® µÊ
+        // í™”ë©´ í¬ê¸° ì„¤ì •
+        PhotonNetwork.SendRate = 60; // ë„£ìœ¼ë©´ ì„œë²„ ë™ê¸°í™”ê°€ ë” ë¹¨ë¦¬ ë¨
 
         PhotonNetwork.SerializationRate = 30;
 
-        //¼­¹ö Á¢¼Ó 
+        //ì„œë²„ ì ‘ì† 
         PhotonNetwork.ConnectUsingSettings();
     }
 
     public void OnstartBtn()
     {
-        PhotonNetwork.LocalPlayer.NickName = NickNameInput.text; // ´Ğ³×ÀÓ ÀÎÇ²ÇÊµå¿¡ ÀûÀº°É·Î ºÎ¿© 
-        PhotonNetwork.JoinOrCreateRoom("Room", new RoomOptions { MaxPlayers = 6 }, null); //JoinOrCreateRoom Àº ·ëÀÌ Á¸Àç ÇÏÁö ¾Ê´Â´Ù¸é ·ëÀ» »ı¼º
+        PhotonNetwork.LocalPlayer.NickName = NickNameInput.text; // ë‹‰ë„¤ì„ ì¸í’‹í•„ë“œì— ì ì€ê±¸ë¡œ ë¶€ì—¬ 
+        PhotonNetwork.JoinOrCreateRoom("Room", new RoomOptions { MaxPlayers = 6 }, null); //JoinOrCreateRoom ì€ ë£¸ì´ ì¡´ì¬ í•˜ì§€ ì•ŠëŠ”ë‹¤ë©´ ë£¸ì„ ìƒì„±
     }
-    public override void OnJoinedRoom() // ¹æ¿¡ ÀÔÀåÇßÀ»¶§ È£ÃâµÊ
+    public override void OnJoinedRoom() // ë°©ì— ì…ì¥í–ˆì„ë•Œ í˜¸ì¶œë¨
     {
-        LoadingtPnl.SetActive(false); // ÆĞ³Î ¾Èº¸ÀÌ°Ô
+        LoadingtPnl.SetActive(false); // íŒ¨ë„ ì•ˆë³´ì´ê²Œ
 
-        if(PhotonNetwork.IsMasterClient) //¹æÀå¸¸
+        if(PhotonNetwork.IsMasterClient) //ë°©ì¥ë§Œ
         {
-            PhotonNetwork.LocalPlayer.NickName += "(¡Ú)";
-            PhotonNetwork.LoadLevel("Stage 1");  //¾À ÀÌµ¿
+            PhotonNetwork.LocalPlayer.NickName += "(â˜…)";
+            PhotonNetwork.LoadLevel("Stage 1");  //ì”¬ ì´ë™
         }
     }
 
@@ -52,11 +52,11 @@ public class NetworkManager : MonoBehaviourPunCallbacks
     }
     void Update()
     {
-        if (Input.GetKeyDown(KeyCode.Escape) && PhotonNetwork.IsConnected) // ¸¸¾à esc¸¦ ´­·µÀ»¶§ ¼­¹ö¿¡ ¿¬°áµÇ¾ú´Ù¸é
-            PhotonNetwork.Disconnect(); //¼­¹ö¿¬°á  ²÷´Â ¸Ş¼Òµå È£Ãâ 
+        if (Input.GetKeyDown(KeyCode.Escape) && PhotonNetwork.IsConnected) // ë§Œì•½ escë¥¼ ëˆŒëŸ¿ì„ë•Œ ì„œë²„ì— ì—°ê²°ë˜ì—ˆë‹¤ë©´
+            PhotonNetwork.Disconnect(); //ì„œë²„ì—°ê²°  ëŠëŠ” ë©”ì†Œë“œ í˜¸ì¶œ 
     }
 
-    public override void OnDisconnected(DisconnectCause cause) //Photon ¼­¹ö ¿ÍÀÇ ¿¬°áÀ» ²÷Àº ÈÄ È£Ãâ
+    public override void OnDisconnected(DisconnectCause cause) //Photon ì„œë²„ ì™€ì˜ ì—°ê²°ì„ ëŠì€ í›„ í˜¸ì¶œ
     {
         LoadingtPnl.SetActive(true); 
         RespawnPanel.SetActive(false);

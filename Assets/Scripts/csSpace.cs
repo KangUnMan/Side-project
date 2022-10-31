@@ -4,32 +4,32 @@ using UnityEngine;
 
 public class csSpace : MonoBehaviour
 {
-    public int speed = 10; // ¿òÁ÷ÀÌ´Â ¼Óµµ
-    float ver; //    Axis(Vertical) ÀÇ °ªÀ» ¹ŞÀ» Àü¿ªº¯¼ö ¼±¾ğ
-    float ang; //    Axis(Horizontal) ÀÇ °ªÀ» ¹ŞÀ» Àü¿ªº¯¼ö ¼±¾ğ
+    public int speed = 10; // ì›€ì§ì´ëŠ” ì†ë„
+    float ver; //    Axis(Vertical) ì˜ ê°’ì„ ë°›ì„ ì „ì—­ë³€ìˆ˜ ì„ ì–¸
+    float ang; //    Axis(Horizontal) ì˜ ê°’ì„ ë°›ì„ ì „ì—­ë³€ìˆ˜ ì„ ì–¸
     bool wDown;
-    Vector3 moveVec; // Vertical°ú HorizontalÀÇ °ªÀ» ÇÕÄ¥ moveVec ¼±¾ğ
+    Vector3 moveVec; // Verticalê³¼ Horizontalì˜ ê°’ì„ í•©ì¹  moveVec ì„ ì–¸
 
     Animator anim;
     // Start is called before the first frame update
     void Awake()
     {
-        anim = GetComponentInChildren<Animator>(); //ÀÚ½Ä ÄÄÆ÷³ÍÆ®¿¡ ÀÖ´Â °ÍÀ» °¡Á®¿È Animator º¯¼ö¸¦ ÃÊ±âÈ­
+        anim = GetComponentInChildren<Animator>(); //ìì‹ ì»´í¬ë„ŒíŠ¸ì— ìˆëŠ” ê²ƒì„ ê°€ì ¸ì˜´ Animator ë³€ìˆ˜ë¥¼ ì´ˆê¸°í™”
     }
 
     // Update is called once per frame
-    void Update() //ÇÁ·¹ÀÓ¸¶´Ù È£ÃâµÊ
+    void Update() //í”„ë ˆì„ë§ˆë‹¤ í˜¸ì¶œë¨
     {
 
-        ver = Input.GetAxis("Vertical"); //  VerticalÀÇ °ªÀ» ´ëÀÔ  GetAxis()´Â axis¸¦ Á¤¼ö·Î ¹İÈ¯ÇÏ´Â ÇÔ¼ö
-        ang = Input.GetAxis("Horizontal"); //Horizontal °ª ´ëÀÔ
-        //wDown = Input.GetButton("Walk"); //shift´Â ´©¸¦¶§¸¸ ÀÛµ¿µÇµµ·Ï GETButton() ÇÔ¼ö»ç¿ë
+        ver = Input.GetAxis("Vertical"); //  Verticalì˜ ê°’ì„ ëŒ€ì…  GetAxis()ëŠ” axisë¥¼ ì •ìˆ˜ë¡œ ë°˜í™˜í•˜ëŠ” í•¨ìˆ˜
+        ang = Input.GetAxis("Horizontal"); //Horizontal ê°’ ëŒ€ì…
+        //wDown = Input.GetButton("Walk"); //shiftëŠ” ëˆ„ë¥¼ë•Œë§Œ ì‘ë™ë˜ë„ë¡ GETButton() í•¨ìˆ˜ì‚¬ìš©
 
-        //moveVec = new Vector3(ang, 0, ver).normalized; // (noranlized ¸ğµç ¹æÇâÀÇ °ªÀ» 1·Î º¸Á¤ÇØÁÜ)
-        //transform.position += moveVec * speed * Time.deltaTime; // Æ÷Áö¼Ç¿¡ À§¿¡ °ª ´õÇØÁÖ°í ÇÁ·¹ÀÓ ·¹ÀÌÆ®¿Í »ó°ü¾øÀÌ ÀÏÁ¤ÇÑ ¼Óµµ·Î ÁøÇà
-        //½ÃÅ°±â À§ÇØ Time.deltaTime¸¦ °öÇØÁØ´Ù.
+        //moveVec = new Vector3(ang, 0, ver).normalized; // (noranlized ëª¨ë“  ë°©í–¥ì˜ ê°’ì„ 1ë¡œ ë³´ì •í•´ì¤Œ)
+        //transform.position += moveVec * speed * Time.deltaTime; // í¬ì§€ì…˜ì— ìœ„ì— ê°’ ë”í•´ì£¼ê³  í”„ë ˆì„ ë ˆì´íŠ¸ì™€ ìƒê´€ì—†ì´ ì¼ì •í•œ ì†ë„ë¡œ ì§„í–‰
+        //ì‹œí‚¤ê¸° ìœ„í•´ Time.deltaTimeë¥¼ ê³±í•´ì¤€ë‹¤.
 
-        //anim.SetBool("isRun", moveVec != Vector3.zero); // setbool ÇÔ¼ö·Î ÆÄ¶ó¸ŞÅÍ °ªÀ» ¼³Á¤ÇÏ±â
+        //anim.SetBool("isRun", moveVec != Vector3.zero); // setbool í•¨ìˆ˜ë¡œ íŒŒë¼ë©”í„° ê°’ì„ ì„¤ì •í•˜ê¸°
         //anim.SetBool("isWalk", wDown); 
     }
 }
