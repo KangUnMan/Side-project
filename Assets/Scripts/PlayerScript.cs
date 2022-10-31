@@ -16,7 +16,7 @@ public class PlayerScript : MonoBehaviourPunCallbacks
     public TMPro.TMP_Text NickNameText;
     public GameObject Player;
     public GameObject underWare;
-    public float speed = 10.0f;
+    public float speed = 1000.0f;
     bool isGround;
     bool SDown;
     bool jDown;
@@ -38,7 +38,8 @@ public class PlayerScript : MonoBehaviourPunCallbacks
     }
     private void Start()
     {   //카메라 따라오기
-        tr = GetComponent<Transform>(); 
+        tr = GetComponent<Transform>();
+        RB.gameObject.GetComponent<Rigidbody>();
         if (PV.IsMine)
             Camera.main.GetComponent<SmoothFollow>().target = tr.Find("CamPivot").transform;
     }
@@ -53,7 +54,7 @@ public class PlayerScript : MonoBehaviourPunCallbacks
             jDown = Input.GetButtonDown("Jump");
             RollingKey = Input.GetButtonDown("Rolling");
 
-            moveVec = new Vector3(axis, 0, ver).normalized;
+            moveVec = new Vector3(axis, 0, ver)*speed;
             if(isRolling)
             {
                 moveVec = RollingVec;
@@ -61,12 +62,12 @@ public class PlayerScript : MonoBehaviourPunCallbacks
 
             if (SDown)
             {
-                transform.position += moveVec * speed * 1.5f * Time.deltaTime;
+                RB.velocity = moveVec *1.5f * Time.deltaTime;
                 transform.LookAt(transform.position + moveVec);      
             }
             else
             {
-                transform.position += moveVec * speed * Time.deltaTime;
+                RB.velocity = moveVec  * Time.deltaTime;
                 transform.LookAt(transform.position + moveVec);         
             }
 
@@ -75,7 +76,7 @@ public class PlayerScript : MonoBehaviourPunCallbacks
                 AN.SetBool("isRun", true);
                 if (jDown && isJump)
                 {
-                    RB.AddForce(Vector3.up * 5, ForceMode.Impulse);
+                    RB.AddForce(Vector3.up * 10, ForceMode.Impulse);
                     AN.SetBool("isJump", true);
                     AN.SetTrigger("doRunJump");
                     isJump = false;
