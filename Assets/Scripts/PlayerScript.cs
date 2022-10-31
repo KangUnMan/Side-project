@@ -30,23 +30,23 @@ public class PlayerScript : MonoBehaviourPunCallbacks
     private int idxMt = -1;
     void Awake()
     {
-        //´Ğ³×ÀÓ ¼³Á¤
+        //ë‹‰ë„¤ì„ ì„¤ì •
         NickNameText.text = photonView.Owner.NickName;
-        NickNameText.text = PV.IsMine ? PhotonNetwork.NickName : PV.Owner.NickName; //ÀÚ½ÅÀÇ ´Ğ³×ÀÓ°ú »ó´ë¹æÀÇ ´Ğ³×ÀÓ ±¸º°
-        NickNameText.color = PV.IsMine ? Color.black : Color.red; //ÀÚ±â ÀÚ½ÅÀÌ¸é ºí·¢ »ó´ëÀÏ°æ¿ì ·¹µå
+        NickNameText.text = PV.IsMine ? PhotonNetwork.NickName : PV.Owner.NickName; //ìì‹ ì˜ ë‹‰ë„¤ì„ê³¼ ìƒëŒ€ë°©ì˜ ë‹‰ë„¤ì„ êµ¬ë³„
+        NickNameText.color = PV.IsMine ? Color.black : Color.red; //ìê¸° ìì‹ ì´ë©´ ë¸”ë™ ìƒëŒ€ì¼ê²½ìš° ë ˆë“œ
 
     }
     private void Start()
-    {   //Ä«¸Ş¶ó µû¶ó¿À±â
+    {   //ì¹´ë©”ë¼ ë”°ë¼ì˜¤ê¸°
         tr = GetComponent<Transform>(); 
         if (PV.IsMine)
             Camera.main.GetComponent<SmoothFollow>().target = tr.Find("CamPivot").transform;
     }
     void Update()
     {   
-        if (PV.IsMine) //ÀÚ½ÅÀÏ°æ¿ì
+        if (PV.IsMine) //ìì‹ ì¼ê²½ìš°
         {
-            // ÇÃ·¹ÀÌ¾î ÀÌµ¿
+            // í”Œë ˆì´ì–´ ì´ë™
             float axis = Input.GetAxis("Horizontal");
             float ver = Input.GetAxis("Vertical");
             SDown = Input.GetButton("Sprint");
@@ -92,7 +92,7 @@ public class PlayerScript : MonoBehaviourPunCallbacks
     }
 
 
-    private void OnCollisionEnter(Collision collision) //ÀÏ¹İÃæµ¹ÀÌ »ı±â¸é È£Ãâ , ¸Å°³º¯¼ö¿¡ Ãæµ¹ÇÑ °³Ã¼¿¡ Á¤º¸°¡ ³Ñ¾î¿Â´Ù
+    private void OnCollisionEnter(Collision collision) //ì¼ë°˜ì¶©ëŒì´ ìƒê¸°ë©´ í˜¸ì¶œ , ë§¤ê°œë³€ìˆ˜ì— ì¶©ëŒí•œ ê°œì²´ì— ì •ë³´ê°€ ë„˜ì–´ì˜¨ë‹¤
     {
         if(collision.gameObject.tag == "Floor")
         {
@@ -118,7 +118,7 @@ public class PlayerScript : MonoBehaviourPunCallbacks
     }
 
      
-    //Á¡ÇÁ ¸Ş¼Òµå
+    //ì í”„ ë©”ì†Œë“œ
     void Jump()
     {
         if (jDown && moveVec == Vector3.zero && isJump && !isRolling)
@@ -129,7 +129,7 @@ public class PlayerScript : MonoBehaviourPunCallbacks
             isJump = false;
         }
     }
-    //±¸¸£±â ¸Ş¼Òµå
+    //êµ¬ë¥´ê¸° ë©”ì†Œë“œ
     void Rolling()
     {
         if (RollingKey && moveVec !=Vector3.zero && !isJump && !isRolling)
@@ -149,7 +149,7 @@ public class PlayerScript : MonoBehaviourPunCallbacks
         AN.SetTrigger("doDeath");
         Death = true;
     }
-    //±¸¸£±â½Ã ¼Óµµ¿Í Ã¼Å©
+    //êµ¬ë¥´ê¸°ì‹œ ì†ë„ì™€ ì²´í¬
     void RollingOut()
     {
         speed *= 0.5f;
@@ -168,7 +168,7 @@ public class PlayerScript : MonoBehaviourPunCallbacks
         idxMt = idx;
     }
 
-    public override void OnPlayerEnteredRoom(Player newPlayer) //¹æ¿¡ µé¾î¿À±âÀü »ó´ëÇÃ·¹ÀÌ¾î°¡ »öÀ» ¹Ù²åÀ»°æ¿ì µ¿±âÈ­ ¸Ş¼Òµå
+    public override void OnPlayerEnteredRoom(Player newPlayer) //ë°©ì— ë“¤ì–´ì˜¤ê¸°ì „ ìƒëŒ€í”Œë ˆì´ì–´ê°€ ìƒ‰ì„ ë°”ê¿¨ì„ê²½ìš° ë™ê¸°í™” ë©”ì†Œë“œ
     {
         if(PV.IsMine && idxMt != -1)
         {
