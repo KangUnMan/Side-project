@@ -18,7 +18,9 @@ public class GameManager : MonoBehaviour
 
     private void Awake()
     {
-        if(instance = null){
+        
+
+        if (instance = null){
             instance = this;
             DontDestroyOnLoad(this.gameObject); //파괴하지않을 게임 오브젝트
         }
@@ -30,9 +32,11 @@ public class GameManager : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
+      
         pv.GetComponent<PhotonView>();
         CP = PhotonNetwork.LocalPlayer.CustomProperties;
         CreatePlayer();
+
     }
 
     void CreatePlayer()
@@ -52,4 +56,6 @@ public class GameManager : MonoBehaviour
     {
         
     }
+
+    
 }

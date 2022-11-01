@@ -40,7 +40,7 @@ public class NetworkManager : MonoBehaviourPunCallbacks
 
         if(PhotonNetwork.IsMasterClient) //방장만
         {
-            PhotonNetwork.LocalPlayer.NickName += "(★)";
+            PhotonNetwork.LocalPlayer.NickName += "(host)";
             PhotonNetwork.LoadLevel("Stage 1");  //씬 이동
         }
     }
