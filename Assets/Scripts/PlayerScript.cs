@@ -54,7 +54,7 @@ public class PlayerScript : MonoBehaviourPunCallbacks
             jDown = Input.GetButtonDown("Jump");
             RollingKey = Input.GetButtonDown("Rolling");
 
-            moveVec = new Vector3(axis, 0, ver)*speed;
+            moveVec = new Vector3(axis, 0, ver)*speed* Time.deltaTime;
             if(isRolling)
             {
                 moveVec = RollingVec;
@@ -62,12 +62,12 @@ public class PlayerScript : MonoBehaviourPunCallbacks
 
             if (SDown)
             {
-                RB.velocity = moveVec *1.5f * Time.deltaTime;
+                RB.velocity = moveVec*1.5f;
                 transform.LookAt(transform.position + moveVec);      
             }
             else
             {
-                RB.velocity = moveVec  * Time.deltaTime;
+                RB.velocity = moveVec;
                 transform.LookAt(transform.position + moveVec);         
             }
 
