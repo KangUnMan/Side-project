@@ -23,6 +23,8 @@ public class PlayerScript : MonoBehaviourPunCallbacks
     bool RollingKey;
     bool isJump;
     bool isRolling;
+    bool RollingTimerSwitch;
+    float Rollingtimer = 0.0f; // 구르기 재사용대기시간 측정 타이머
     Vector3 moveVec;
     Vector3 RollingVec;
     public Material[] playerMt;
@@ -62,7 +64,7 @@ public class PlayerScript : MonoBehaviourPunCallbacks
 
             if (SDown)
             {
-                RB.velocity = moveVec*1.5f;
+                RB.velocity = moveVec*1.2f;
                 transform.LookAt(transform.position + moveVec);      
             }
             else
@@ -76,7 +78,7 @@ public class PlayerScript : MonoBehaviourPunCallbacks
                 AN.SetBool("isRun", true);
                 if (jDown && isJump)
                 {
-                    RB.AddForce(Vector3.up * 10, ForceMode.Impulse);
+                    RB.AddForce(Vector3.up * 80, ForceMode.Impulse);
                     AN.SetBool("isJump", true);
                     AN.SetTrigger("doRunJump");
                     isJump = false;
@@ -89,6 +91,16 @@ public class PlayerScript : MonoBehaviourPunCallbacks
 
             Jump();
             Rolling();
+            if(RollingTimerSwitch == true)
+            {
+                Rollingtimer += Time.deltaTime;
+            }
+
+            if (Rollingtimer >= 3) // 4초가 지나면
+            {
+                RollingTimerSwitch = false;
+                Rollingtimer = 0;
+            }
         }
     }
 
@@ -97,6 +109,7 @@ public class PlayerScript : MonoBehaviourPunCallbacks
     {
         if(collision.gameObject.tag == "Floor")
         {
+            AN.SetBool("isJump", false);
             isJump = true;
         }
         string coll = collision.gameObject.name;
@@ -124,7 +137,7 @@ public class PlayerScript : MonoBehaviourPunCallbacks
     {
         if (jDown && moveVec == Vector3.zero && isJump && !isRolling)
         {
-            RB.AddForce(Vector3.up * 5, ForceMode.Impulse);
+            RB.AddForce(Vector3.up * 80, ForceMode.Impulse);
             AN.SetBool("isJump", true);
             AN.SetTrigger("doJump");
             isJump = false;
@@ -133,10 +146,10 @@ public class PlayerScript : MonoBehaviourPunCallbacks
     //구르기 메소드
     void Rolling()
     {
-        if (RollingKey && moveVec !=Vector3.zero && !isJump && !isRolling)
+        if (RollingKey && moveVec !=Vector3.zero && !isJump && !isRolling &&!RollingTimerSwitch)
         {
-            RollingVec = moveVec;
-            speed *= 2;
+            RollingVec = moveVec*1.5f;
+            
             AN.SetTrigger("doRolling");
             isRolling = true;
             isJump = false;
@@ -153,8 +166,8 @@ public class PlayerScript : MonoBehaviourPunCallbacks
     //구르기시 속도와 체크
     void RollingOut()
     {
-        speed *= 0.5f;
         isRolling = false;
+        RollingTimerSwitch = true;
     }
 
     public void InitColor(int num)
