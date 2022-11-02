@@ -6,7 +6,7 @@ using Photon.Realtime;
 using UnityEngine.UI;
 using TMPro;
 using UnityStandardAssets.Utility;
-public class PlayerScript : MonoBehaviourPunCallbacks
+public class LMS_PlayerScript : MonoBehaviourPunCallbacks
 {
     public Rigidbody RB;
     public Animator AN;
@@ -30,18 +30,24 @@ public class PlayerScript : MonoBehaviourPunCallbacks
     private int idxMt = -1;
     void Awake()
     {
-        //닉네임 설정
-        NickNameText.text = photonView.Owner.NickName;
-        NickNameText.text = PV.IsMine ? PhotonNetwork.NickName : PV.Owner.NickName; //자신의 닉네임과 상대방의 닉네임 구별
-        NickNameText.color = PV.IsMine ? Color.black : Color.red; //자기 자신이면 블랙 상대일경우 레드
+        ////닉네임 설정
+        //NickNameText.text = photonView.Owner.NickName;
+        //NickNameText.text = PV.IsMine ? PhotonNetwork.NickName : PV.Owner.NickName; //자신의 닉네임과 상대방의 닉네임 구별
+        //NickNameText.color = PV.IsMine ? Color.black : Color.red; //자기 자신이면 블랙 상대일경우 레드
+        RB = GetComponent<Rigidbody>();
+        AN = GetComponent<Animator>();
+        SR = GetComponent<SpriteRenderer>();
+        PV = GetComponent<PhotonView>();
+        Player = this.gameObject;
 
-    }
-    private void Start()
-    {   //카메라 따라오기
         tr = GetComponent<Transform>();
         RB.gameObject.GetComponent<Rigidbody>();
         if (PV.IsMine)
-            Camera.main.GetComponent<SmoothFollow>().target = tr.Find("CamPivot").transform;
+        {
+            Camera.main.GetComponent<LMS_Camera>().target = GameObject.Find("CamPivot");
+            Camera.main.GetComponent<LMS_Camera>().Player = this.gameObject;
+        }
+
     }
     void Update()
     {   
@@ -54,7 +60,7 @@ public class PlayerScript : MonoBehaviourPunCallbacks
             jDown = Input.GetButtonDown("Jump");
             RollingKey = Input.GetButtonDown("Rolling");
 
-            moveVec = new Vector3(axis, 0, ver)*speed;
+            moveVec = new Vector3(0, 0, ver)*speed;
             if(isRolling)
             {
                 moveVec = RollingVec;
@@ -71,7 +77,7 @@ public class PlayerScript : MonoBehaviourPunCallbacks
                 transform.LookAt(transform.position + moveVec);         
             }
 
-            if (axis != 0 || ver != 0)
+            if (ver != 0)
             {
                 AN.SetBool("isRun", true);
                 if (jDown && isJump)
@@ -83,7 +89,15 @@ public class PlayerScript : MonoBehaviourPunCallbacks
                 }
 
             }
-            else AN.SetBool("isRun", false);
+            else
+                AN.SetBool("isRun", false);
+
+            if(axis != 0)
+            {
+                Vector3 rotation = transform.rotation.eulerAngles;
+                rotation.y += axis * 20f * Time.deltaTime;
+                Player.transform.rotation = Quaternion.Euler(rotation);
+            }
 
             AN.SetBool("isSprint", SDown);
 
