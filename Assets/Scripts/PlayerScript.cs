@@ -30,10 +30,10 @@ public class PlayerScript : MonoBehaviourPunCallbacks
     private int idxMt = -1;
     void Awake()
     {
-        //닉네임 설정
-        NickNameText.text = photonView.Owner.NickName;
-        NickNameText.text = PV.IsMine ? PhotonNetwork.NickName : PV.Owner.NickName; //자신의 닉네임과 상대방의 닉네임 구별
-        NickNameText.color = PV.IsMine ? Color.black : Color.red; //자기 자신이면 블랙 상대일경우 레드
+        ////닉네임 설정
+        //NickNameText.text = photonView.Owner.NickName;
+        //NickNameText.text = PV.IsMine ? PhotonNetwork.NickName : PV.Owner.NickName; //자신의 닉네임과 상대방의 닉네임 구별
+        //NickNameText.color = PV.IsMine ? Color.black : Color.red; //자기 자신이면 블랙 상대일경우 레드
 
     }
     private void Start()
