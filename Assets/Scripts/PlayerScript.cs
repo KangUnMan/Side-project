@@ -16,7 +16,7 @@ public class PlayerScript : MonoBehaviourPunCallbacks
     public TMPro.TMP_Text NickNameText;
     public GameObject Player;
     public GameObject underWare;
-    public float speed = 1000.0f;
+    public float speed = 10.0f;
     bool isGround;
     bool SDown;
     bool jDown;
@@ -54,7 +54,7 @@ public class PlayerScript : MonoBehaviourPunCallbacks
             jDown = Input.GetButtonDown("Jump");
             RollingKey = Input.GetButtonDown("Rolling");
 
-            moveVec = new Vector3(axis, 0, ver)*speed* Time.deltaTime;
+            moveVec = new Vector3(axis, 0, ver)*speed;
             if(isRolling)
             {
                 moveVec = RollingVec;

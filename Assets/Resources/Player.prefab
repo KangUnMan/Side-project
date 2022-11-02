@@ -1602,7 +1602,7 @@ MonoBehaviour:
   NickNameText: {fileID: 3867951424166567941}
   Player: {fileID: 2583725243513030359}
   underWare: {fileID: 87813322286502991}
-  speed: 1000
+  speed: 10
   playerMt:
   - {fileID: 2100000, guid: 90b9f2b6aa49c5f48b2270d16beee8da, type: 2}
   - {fileID: 2100000, guid: c83eff55c9ac8524bb815980b06c33ec, type: 2}
@@ -1729,7 +1729,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   m_SynchronizeVelocity: 1
-  m_SynchronizeAngularVelocity: 0
+  m_SynchronizeAngularVelocity: 1
   m_TeleportEnabled: 0
   m_TeleportIfDistanceGreaterThan: 3
 --- !u!136 &4365325893276881895
