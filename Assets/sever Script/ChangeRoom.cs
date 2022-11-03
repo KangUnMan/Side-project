@@ -23,7 +23,7 @@ public class ChangeRoom : MonoBehaviour
         if (PhotonNetwork.IsMasterClient) //방장만
         {
             
-            PhotonNetwork.LoadLevel("StayStage");  //씬 이동
+            PhotonNetwork.LoadLevel("TFGunStage");  //씬 이동
         }
     }
 

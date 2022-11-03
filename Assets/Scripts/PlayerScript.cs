@@ -12,6 +12,9 @@ public class PlayerScript : MonoBehaviourPunCallbacks
     public Animator AN;
     public SpriteRenderer SR;
     public bool Death;
+    public Transform FierePos;
+    public float power = 1500f;
+    public GameObject Rock; //돌멩이를 넣어줄 변수
     public PhotonView PV;
     public TMPro.TMP_Text NickNameText;
     public GameObject Player;
@@ -22,6 +25,7 @@ public class PlayerScript : MonoBehaviourPunCallbacks
     bool jDown;
     bool RollingKey;
     bool isJump;
+    bool Throwkey;
     bool isRolling;
     bool RollingTimerSwitch;
     float Rollingtimer = 0.0f; // 구르기 재사용대기시간 측정 타이머
@@ -55,6 +59,7 @@ public class PlayerScript : MonoBehaviourPunCallbacks
             SDown = Input.GetButton("Sprint");
             jDown = Input.GetButtonDown("Jump");
             RollingKey = Input.GetButtonDown("Rolling");
+            Throwkey = Input.GetButtonDown("Fire1");
 
             moveVec = new Vector3(axis, 0, ver)*speed;
             if(isRolling)
@@ -96,10 +101,17 @@ public class PlayerScript : MonoBehaviourPunCallbacks
                 Rollingtimer += Time.deltaTime;
             }
 
-            if (Rollingtimer >= 3) // 4초가 지나면
+            if (Rollingtimer >= 3) // 4초가  
             {
                 RollingTimerSwitch = false;
                 Rollingtimer = 0;
+            }
+
+            if (Input.GetButtonDown("Fire1")) // have 건의 불값이 true 이고 Fire1 버튼을 누를때 실행됨
+            {
+                GameObject ins =PhotonNetwork.Instantiate("Rock", FierePos.transform.position, FierePos.transform.rotation) as GameObject;
+                ins.GetComponent<Rigidbody>().AddForce(transform.forward * power);
+                AN.SetTrigger("doThrow");
             }
         }
     }
