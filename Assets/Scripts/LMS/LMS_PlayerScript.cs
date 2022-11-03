@@ -59,25 +59,29 @@ public class LMS_PlayerScript : MonoBehaviourPunCallbacks
             SDown = Input.GetButton("Sprint");
             jDown = Input.GetButtonDown("Jump");
             RollingKey = Input.GetButtonDown("Rolling");
+            Vector3 moveX, moveZ;
+            moveX = transform.right * axis;
+            moveZ = transform.forward * ver;
 
-            moveVec = new Vector3(0, 0, ver)*speed;
+            moveVec = new Vector3(axis, 0, ver)*speed;
             if(isRolling)
             {
                 moveVec = RollingVec;
             }
 
-            if (SDown)
+            if (SDown)  // 여기서 속도 & 방향 조정
             {
-                RB.velocity = moveVec*1.5f;
-                transform.LookAt(transform.position + moveVec);      
+                moveVec *= 1.5f;
+                
+                //transform.LookAt(transform.position + moveVec);      
             }
             else
             {
-                RB.velocity = moveVec;
-                transform.LookAt(transform.position + moveVec);         
+                //RB.velocity = moveVec;
+                //transform.LookAt(transform.position + moveVec);         
             }
 
-            if (ver != 0)
+            if (ver != 0 || axis != 0)
             {
                 AN.SetBool("isRun", true);
                 if (jDown && isJump)
@@ -91,13 +95,16 @@ public class LMS_PlayerScript : MonoBehaviourPunCallbacks
             }
             else
                 AN.SetBool("isRun", false);
+            moveVec = (moveX + moveZ).normalized * speed;
+            RB.velocity = moveVec;
 
-            if(axis != 0)
-            {
-                Vector3 rotation = transform.rotation.eulerAngles;
-                rotation.y += axis * 20f * Time.deltaTime;
-                Player.transform.rotation = Quaternion.Euler(rotation);
-            }
+
+            //if(axis != 0)
+            //{
+            //    Vector3 rotation = transform.rotation.eulerAngles;
+            //    rotation.y += axis * 20f * Time.deltaTime;
+            //    Player.transform.rotation = Quaternion.Euler(rotation);
+            //}
 
             AN.SetBool("isSprint", SDown);
 
