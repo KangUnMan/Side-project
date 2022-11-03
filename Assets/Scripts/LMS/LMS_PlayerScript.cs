@@ -69,18 +69,6 @@ public class LMS_PlayerScript : MonoBehaviourPunCallbacks
                 moveVec = RollingVec;
             }
 
-            if (SDown)  // 여기서 속도 & 방향 조정
-            {
-                moveVec *= 1.5f;
-                
-                //transform.LookAt(transform.position + moveVec);      
-            }
-            else
-            {
-                //RB.velocity = moveVec;
-                //transform.LookAt(transform.position + moveVec);         
-            }
-
             if (ver != 0 || axis != 0)
             {
                 AN.SetBool("isRun", true);
@@ -97,7 +85,10 @@ public class LMS_PlayerScript : MonoBehaviourPunCallbacks
                 AN.SetBool("isRun", false);
             moveVec = (moveX + moveZ).normalized * speed;
             RB.velocity = moveVec;
-
+            if (SDown)
+            {
+                moveVec *= 1.5f;
+            }
 
             //if(axis != 0)
             //{
