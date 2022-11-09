@@ -129,6 +129,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   PV: {fileID: 3330627550569423976}
+  power: 4500
 --- !u!114 &3330627550569423976
 MonoBehaviour:
   m_ObjectHideFlags: 0
