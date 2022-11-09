@@ -13,7 +13,6 @@ public class PlayerScript : MonoBehaviourPunCallbacks
     public SpriteRenderer SR;
     public bool Death;
     public Transform FierePos;
-    public float power = 1500f;
     public GameObject Rock; //돌멩이를 넣어줄 변수
     public PhotonView PV;
     public TMPro.TMP_Text NickNameText;
@@ -29,6 +28,7 @@ public class PlayerScript : MonoBehaviourPunCallbacks
     bool isRolling;
     bool RollingTimerSwitch;
     float Rollingtimer = 0.0f; // 구르기 재사용대기시간 측정 타이머
+    float Deathtimer = 0.0f; // 죽음 타이머
     Vector3 moveVec;
     Vector3 RollingVec;
     public Material[] playerMt;
@@ -101,6 +101,18 @@ public class PlayerScript : MonoBehaviourPunCallbacks
                 Rollingtimer += Time.deltaTime;
             }
 
+            if (Death == true)
+            {
+                Deathtimer += Time.deltaTime;
+            }
+
+            if (Deathtimer >= 1.3f) // 1초가  
+            {
+                CharDeath();
+                Death = false;
+                Rollingtimer = 0;
+            }
+
             if (Rollingtimer >= 3) // 4초가  
             {
                 RollingTimerSwitch = false;
@@ -110,7 +122,6 @@ public class PlayerScript : MonoBehaviourPunCallbacks
             if (Input.GetButtonDown("Fire1")) // have 건의 불값이 true 이고 Fire1 버튼을 누를때 실행됨
             {
                 GameObject ins =PhotonNetwork.Instantiate("Rock", FierePos.transform.position, FierePos.transform.rotation) as GameObject;
-                ins.GetComponent<Rigidbody>().AddForce(transform.forward * power);
                 AN.SetTrigger("doThrow");
             }
         }
@@ -124,6 +135,7 @@ public class PlayerScript : MonoBehaviourPunCallbacks
             AN.SetBool("isJump", false);
             isJump = true;
         }
+
         string coll = collision.gameObject.name;
         switch (coll)
         {
@@ -193,6 +205,22 @@ public class PlayerScript : MonoBehaviourPunCallbacks
         underWare.GetComponent<Renderer>().material = playerMt[idx];
         idxMt = idx;
     }
+
+    public void Hit() //돌멩이에 맞았을때
+    {   
+            DeathEvent();
+    }
+
+    void CharDeath()
+    {
+        PV.RPC("DestroyRPC", RpcTarget.AllBuffered);
+    }
+
+    [PunRPC]
+    void DestroyRPC()
+    {
+        Destroy(gameObject);
+    } 
 
     public override void OnPlayerEnteredRoom(Player newPlayer) //방에 들어오기전 상대플레이어가 색을 바꿨을경우 동기화 메소드
     {

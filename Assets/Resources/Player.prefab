@@ -5628,7 +5628,7 @@ GameObject:
   - component: {fileID: 4432356970023424056}
   m_Layer: 0
   m_Name: Player
-  m_TagString: Untagged
+  m_TagString: Player
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -5708,7 +5708,7 @@ MonoBehaviour:
     SynchronizeType: 1
     Name: doRunJump
   - Type: 9
-    SynchronizeType: 0
+    SynchronizeType: 1
     Name: doDeath
   - Type: 9
     SynchronizeType: 1
@@ -5733,7 +5733,6 @@ MonoBehaviour:
   SR: {fileID: 1497449221857916568}
   Death: 0
   FierePos: {fileID: 2426402841224351665}
-  power: 4000
   Rock: {fileID: 7877823025686630275, guid: 6e006c9e4cb71024598115ca03bd738b, type: 3}
   PV: {fileID: 5934043807667378455}
   NickNameText: {fileID: 937912856890321441}
