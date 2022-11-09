@@ -62,17 +62,17 @@ public class PlayerScript : MonoBehaviourPunCallbacks
             Throwkey = Input.GetButtonDown("Fire1");
 
             moveVec = new Vector3(axis, 0, ver)*speed;
-            if(isRolling)
+            if(isRolling )
             {
                 moveVec = RollingVec;
             }
 
-            if (SDown)
+            if (SDown && Death != true)
             {
                 RB.velocity = moveVec*1.2f;
                 transform.LookAt(transform.position + moveVec);      
             }
-            else
+            else if (Death != true)
             {
                 RB.velocity = moveVec;
                 transform.LookAt(transform.position + moveVec);         
@@ -119,7 +119,7 @@ public class PlayerScript : MonoBehaviourPunCallbacks
                 Rollingtimer = 0;
             }
 
-            if (Input.GetButtonDown("Fire1")) // have 건의 불값이 true 이고 Fire1 버튼을 누를때 실행됨
+            if (Input.GetButtonDown("Fire1")&& Death!=true) // Death 불값이 true가 아니면 Fire1 버튼을 누를때 실행됨
             {
                 GameObject ins =PhotonNetwork.Instantiate("Rock", FierePos.transform.position, FierePos.transform.rotation) as GameObject;
                 AN.SetTrigger("doThrow");
@@ -159,7 +159,7 @@ public class PlayerScript : MonoBehaviourPunCallbacks
     //점프 메소드
     void Jump()
     {
-        if (jDown && moveVec == Vector3.zero && isJump && !isRolling)
+        if (jDown && moveVec == Vector3.zero && isJump && !isRolling && Death != true)
         {
             RB.AddForce(Vector3.up * 80, ForceMode.Impulse);
             AN.SetBool("isJump", true);
@@ -170,7 +170,7 @@ public class PlayerScript : MonoBehaviourPunCallbacks
     //구르기 메소드
     void Rolling()
     {
-        if (RollingKey && moveVec !=Vector3.zero && !isJump && !isRolling &&!RollingTimerSwitch)
+        if (RollingKey && moveVec !=Vector3.zero && !isJump && !isRolling &&!RollingTimerSwitch && Death != true)
         {
             RollingVec = moveVec*1.5f;
             
