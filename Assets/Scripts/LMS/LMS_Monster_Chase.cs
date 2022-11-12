@@ -31,6 +31,14 @@ public class LMS_Monster_Chase : MonoBehaviour
 
     private void OnCollisionEnter(Collision collision)
     {
-        Instantiate(explosion, transform.position, transform.rotation);
+        if (collision.gameObject.tag.Equals("Player"))
+        {
+            Instantiate(explosion, transform.position, transform.rotation);
+        }
+    }
+
+    private void ChangeTarget(GameObject target)
+    {
+        this.target = target;
     }
 }
