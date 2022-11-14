@@ -19,6 +19,8 @@ public class PlayerScript : MonoBehaviourPunCallbacks
     public GameObject Player;
     public GameObject underWare;
     public float speed = 10.0f;
+    public int RockItem;
+    public int RockItemMax;
     bool isGround;
     bool SDown;
     bool jDown;
@@ -26,9 +28,11 @@ public class PlayerScript : MonoBehaviourPunCallbacks
     bool isJump;
     bool Throwkey;
     bool isRolling;
+    bool AttackDelay;
     bool RollingTimerSwitch;
     float Rollingtimer = 0.0f; // 구르기 재사용대기시간 측정 타이머
     float Deathtimer = 0.0f; // 죽음 타이머
+    float AttackDelaytimer = 0.0f; //연사 금지
     Vector3 moveVec;
     Vector3 RollingVec;
     public Material[] playerMt;
@@ -67,12 +71,12 @@ public class PlayerScript : MonoBehaviourPunCallbacks
                 moveVec = RollingVec;
             }
 
-            if (SDown && Death != true)
+            if (SDown && Death != true && AttackDelay != true)
             {
                 RB.velocity = moveVec*1.2f;
                 transform.LookAt(transform.position + moveVec);      
             }
-            else if (Death != true)
+            else if (Death != true && AttackDelay != true)
             {
                 RB.velocity = moveVec;
                 transform.LookAt(transform.position + moveVec);         
@@ -105,7 +109,15 @@ public class PlayerScript : MonoBehaviourPunCallbacks
             {
                 Deathtimer += Time.deltaTime;
             }
-
+            if (AttackDelay == true)
+            {
+                AttackDelaytimer += Time.deltaTime;
+            }
+            if(AttackDelaytimer >= 0.6f)
+            {
+                AttackDelay = false;
+                AttackDelaytimer = 0.0f;
+            }
             if (Deathtimer >= 1.3f) // 1초가  
             {
                 CharDeath();
@@ -119,10 +131,11 @@ public class PlayerScript : MonoBehaviourPunCallbacks
                 Rollingtimer = 0;
             }
 
-            if (Input.GetButtonDown("Fire1")&& Death!=true) // Death 불값이 true가 아니면 Fire1 버튼을 누를때 실행됨
+            if (Input.GetButtonDown("Fire1")&& Death!=true && AttackDelay != true ) // Death 불값이 true가 아니면 Fire1 버튼을 누를때 실행됨
             {
                 GameObject ins =PhotonNetwork.Instantiate("Rock", FierePos.transform.position, FierePos.transform.rotation) as GameObject;
                 AN.SetTrigger("doThrow");
+                AttackDelay = true;
             }
         }
     }
@@ -155,11 +168,22 @@ public class PlayerScript : MonoBehaviourPunCallbacks
         }
     }
 
-     
+    private void OnTriggerEnter(Collider other)
+    {
+      /*  if(other.tag == "Item")
+        {
+            Item item = other.GetComponent <Item> ();
+            switch (item.type)
+            {
+
+            }
+        }*/
+    }
+
     //점프 메소드
     void Jump()
     {
-        if (jDown && moveVec == Vector3.zero && isJump && !isRolling && Death != true)
+        if (jDown && moveVec == Vector3.zero && isJump && !isRolling && Death != true && AttackDelay != true)
         {
             RB.AddForce(Vector3.up * 80, ForceMode.Impulse);
             AN.SetBool("isJump", true);
@@ -170,13 +194,12 @@ public class PlayerScript : MonoBehaviourPunCallbacks
     //구르기 메소드
     void Rolling()
     {
-        if (RollingKey && moveVec !=Vector3.zero && !isJump && !isRolling &&!RollingTimerSwitch && Death != true)
+        if (RollingKey && moveVec !=Vector3.zero && !isRolling &&!RollingTimerSwitch && Death != true && AttackDelay != true)
         {
-            RollingVec = moveVec*1.5f;
+            RollingVec = moveVec*2f;
             
             AN.SetTrigger("doRolling");
             isRolling = true;
-            isJump = false;
 
             Invoke("RollingOut", 0.6f);
         }
