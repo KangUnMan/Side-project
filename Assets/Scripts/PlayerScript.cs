@@ -138,8 +138,10 @@ public class PlayerScript : MonoBehaviourPunCallbacks
                 AN.SetTrigger("doThrow");
                 AttackDelay = true;
                 MyRockHave = false;
-                HandRock.enabled = false;
+                NotHaveRock();
             }
+
+            
         }
     }
 
@@ -237,6 +239,15 @@ public class PlayerScript : MonoBehaviourPunCallbacks
     void CharDeath()
     {
         PV.RPC("DestroyRPC", RpcTarget.AllBuffered);
+    }
+    void NotHaveRock()
+    {
+        PV.RPC("NotHaveRockRPC", RpcTarget.AllBuffered);
+    }
+    [PunRPC]
+    void NotHaveRockRPC()
+    {
+        HandRock.enabled = false;
     }
 
     [PunRPC]
