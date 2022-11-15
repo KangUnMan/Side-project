@@ -14,13 +14,13 @@ public class PlayerScript : MonoBehaviourPunCallbacks
     public bool Death;
     public Transform FierePos;
     public GameObject Rock; //돌멩이를 넣어줄 변수
+    public Renderer HandRock;
     public PhotonView PV;
     public TMPro.TMP_Text NickNameText;
     public GameObject Player;
     public GameObject underWare;
     public float speed = 10.0f;
-    public int RockItem;
-    public int RockItemMax;
+    public bool MyRockHave;
     bool isGround;
     bool SDown;
     bool jDown;
@@ -30,6 +30,7 @@ public class PlayerScript : MonoBehaviourPunCallbacks
     bool isRolling;
     bool AttackDelay;
     bool RollingTimerSwitch;
+    GameObject nearObject;
     float Rollingtimer = 0.0f; // 구르기 재사용대기시간 측정 타이머
     float Deathtimer = 0.0f; // 죽음 타이머
     float AttackDelaytimer = 0.0f; //연사 금지
@@ -131,11 +132,13 @@ public class PlayerScript : MonoBehaviourPunCallbacks
                 Rollingtimer = 0;
             }
 
-            if (Input.GetButtonDown("Fire1")&& Death!=true && AttackDelay != true ) // Death 불값이 true가 아니면 Fire1 버튼을 누를때 실행됨
+            if (Input.GetButtonDown("Fire1")&& Death!=true && AttackDelay != true &&MyRockHave) // Death 불값이 true가 아니면 Fire1 버튼을 누를때 실행됨
             {
                 GameObject ins =PhotonNetwork.Instantiate("Rock", FierePos.transform.position, FierePos.transform.rotation) as GameObject;
                 AN.SetTrigger("doThrow");
                 AttackDelay = true;
+                MyRockHave = false;
+                HandRock.enabled = false;
             }
         }
     }
@@ -170,14 +173,11 @@ public class PlayerScript : MonoBehaviourPunCallbacks
 
     private void OnTriggerEnter(Collider other)
     {
-      /*  if(other.tag == "Item")
+        if (other.tag == "ItemRock")
         {
-            Item item = other.GetComponent <Item> ();
-            switch (item.type)
-            {
-
-            }
-        }*/
+            HandRock.enabled = true;
+            MyRockHave = true;
+        }
     }
 
     //점프 메소드

@@ -2,6 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using Photon.Pun;
+using UnityEngine.SceneManagement;
 using Photon.Realtime;
 using UnityEngine.UI;
 using Hashtable = ExitGames.Client.Photon.Hashtable;
@@ -36,7 +37,13 @@ public class GameManager : MonoBehaviour
         pv.GetComponent<PhotonView>();
         CP = PhotonNetwork.LocalPlayer.CustomProperties;
         CreatePlayer();
-
+        if(SceneManager.GetActiveScene().name=="TFGunStage")
+        {   
+            for(int i=0; i<4; i++)
+            {
+                CreateRock();
+            } 
+        }
     }
 
     void CreatePlayer()
@@ -50,6 +57,11 @@ public class GameManager : MonoBehaviour
         {
             playerTemp.GetComponent<PlayerScript>().InitColor(colorNum - 1);
         }
+    }
+
+    void CreateRock()
+    {
+        GameObject rocktemp = PhotonNetwork.Instantiate("ItemRock", new Vector3(Random.Range(-40f, 40f), 0, Random.Range(-40f, 40f)), Quaternion.identity);
     }
     // Update is called once per frame
     void Update()

@@ -8,7 +8,7 @@ TagManager:
   - Land
   - Floor
   - Rock
-  - Item
+  - ItemRock
   layers:
   - Default
   - TransparentFX
