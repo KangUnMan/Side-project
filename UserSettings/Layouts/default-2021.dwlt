@@ -19,7 +19,7 @@ MonoBehaviour:
     width: 1536
     height: 780.8
   m_ShowMode: 4
-  m_Title: Game
+  m_Title: Project
   m_RootView: {fileID: 4}
   m_MinSize: {x: 875, y: 492}
   m_MaxSize: {x: 10000, y: 10000}
@@ -74,7 +74,7 @@ MonoBehaviour:
   m_MinSize: {x: 100, y: 200}
   m_MaxSize: {x: 8096, y: 16192}
   vertical: 1
-  controlID: 21
+  controlID: 68
 --- !u!114 &4
 MonoBehaviour:
   m_ObjectHideFlags: 52
@@ -150,7 +150,7 @@ MonoBehaviour:
   m_MinSize: {x: 300, y: 200}
   m_MaxSize: {x: 24288, y: 16192}
   vertical: 0
-  controlID: 78
+  controlID: 102
 --- !u!114 &7
 MonoBehaviour:
   m_ObjectHideFlags: 52
@@ -196,7 +196,7 @@ MonoBehaviour:
   m_MinSize: {x: 100, y: 200}
   m_MaxSize: {x: 8096, y: 16192}
   vertical: 1
-  controlID: 79
+  controlID: 93
 --- !u!114 &9
 MonoBehaviour:
   m_ObjectHideFlags: 52
@@ -242,8 +242,8 @@ MonoBehaviour:
     y: 0
     width: 300
     height: 730.8
-  m_MinSize: {x: 276, y: 71}
-  m_MaxSize: {x: 4001, y: 4021}
+  m_MinSize: {x: 275, y: 50}
+  m_MaxSize: {x: 4000, y: 4000}
   m_ActualView: {fileID: 15}
   m_Panes:
   - {fileID: 15}
@@ -363,7 +363,7 @@ MonoBehaviour:
       scrollPos: {x: 0, y: 0}
       m_SelectedIDs: 
       m_LastClickedID: 0
-      m_ExpandedIDs: b4f9fdff08fafdff1601feff2001feff2c01feff3801feff2637feff7a37feff3a40feff4040feff4c40feff5440feffb67afeff2688fefffeaffeff52b0feff8eb9feff94b9feffa0b9feffa8b9feffa2c0feffd6c9feff94cdfefff2cdfeff3af9feffd403fffff816ffffdc24ffffba33ffff8637ffff8657ffffe457ffff766bffff7c6bfffffc6cffff3a8affffbc8affffb28cffff108dffff6c8dffff3ebfffff44bfffff60bfffff6ebfffffcec0ffffd4c0ffff4ec2ffff48eeffff0af1ffff26f1ffff34f1ffff7cf2fffff2f9ffff30fbffff4e630000da9d0000109e000076b7000018e10000c0fe0000
+      m_ExpandedIDs: d226ffff5041ffff3a5affffaa60fffffe60ffff406affff466affff526affff5a6affff9e77ffff7086ffff0c95ffff189cffff829dffff1aa0ffffc4abffff34acffff90acffffd4b3ffff32b4ffff7eb4ffffd8beffff36c1ffffa6cfffff2cddffff70e4ffffcee4ffff5ce5ffffc8e5ffff24e6ffff68edffffd2edffff84eefffff0f1ffff34f9ffff92f9ffff30fbfffff4ffffffda6d0000bec60000
       m_RenameOverlay:
         m_UserAcceptedRename: 0
         m_Name: 
@@ -483,7 +483,7 @@ MonoBehaviour:
     scrollPos: {x: 0, y: 0}
     m_SelectedIDs: 286a0000
     m_LastClickedID: 27176
-    m_ExpandedIDs: 00000000ee600000f0600000f2600000f4600000f6600000f8600000fa600000fc600000fe60000000610000026100000461000006610000086100000a6100000c6100000e61000010610000126100001461000016610000186100001a6100001c6100001e61000020610000226100002461000026610000286100002a6100002c6100002e61000030610000326100003461000036610000386100003a610000
+    m_ExpandedIDs: 000000000a6100000c6100000e61000010610000126100001461000016610000186100001a6100001c6100001e61000020610000226100002461000026610000286100002a6100002c6100002e61000030610000326100003461000036610000386100003a6100003c6100003e61000040610000426100004461000046610000486100004a6100004c6100004e6100005061000052610000546100005661000058610000
     m_RenameOverlay:
       m_UserAcceptedRename: 0
       m_Name: 
@@ -508,21 +508,21 @@ MonoBehaviour:
       m_Icon: {fileID: 0}
       m_ResourceFile: 
   m_AssetTreeState:
-    scrollPos: {x: 0, y: 898.6}
+    scrollPos: {x: 0, y: 938.6}
     m_SelectedIDs: 
     m_LastClickedID: 0
-    m_ExpandedIDs: ffffffff00000000ee600000f0600000f2600000f4600000f6600000f8600000fa600000fc600000fe60000000610000026100000461000006610000086100000a6100000c6100000e61000010610000126100001461000016610000186100001a6100001c6100001e61000020610000226100002461000026610000286100002a6100002c6100002e61000030610000326100003461000036610000386100003a61000080610000
+    m_ExpandedIDs: ffffffff000000000a6100000c6100000e61000010610000126100001461000016610000186100001a6100001c6100001e61000020610000226100002461000026610000286100002a6100002c6100002e61000030610000326100003461000036610000386100003a6100003c6100003e61000040610000426100004461000046610000486100004a6100004c6100004e6100005061000052610000546100005661000058610000fc610000
     m_RenameOverlay:
       m_UserAcceptedRename: 0
-      m_Name: RockitemScript
-      m_OriginalName: RockitemScript
+      m_Name: GameManager2
+      m_OriginalName: GameManager2
       m_EditFieldRect:
         serializedVersion: 2
         x: 0
         y: 0
         width: 0
         height: 0
-      m_UserData: 70926
+      m_UserData: 53738
       m_IsWaitingForDelay: 0
       m_IsRenaming: 0
       m_OriginalEventType: 0
@@ -692,8 +692,8 @@ MonoBehaviour:
       floating: 0
       collapsed: 0
       displayed: 1
-      snapOffset: {x: -100, y: -25.600006}
-      snapOffsetDelta: {x: 0, y: 0}
+      snapOffset: {x: 0, y: 0}
+      snapOffsetDelta: {x: -100, y: -25.600006}
       snapCorner: 3
       id: Tool Settings
       index: 0
@@ -703,9 +703,9 @@ MonoBehaviour:
       floating: 0
       collapsed: 0
       displayed: 1
-      snapOffset: {x: -141, y: -175}
+      snapOffset: {x: -141, y: 149}
       snapOffsetDelta: {x: 0, y: 0}
-      snapCorner: 3
+      snapCorner: 1
       id: unity-grid-and-snap-toolbar
       index: 1
       layout: 1
@@ -714,7 +714,7 @@ MonoBehaviour:
       floating: 0
       collapsed: 0
       displayed: 1
-      snapOffset: {x: 0, y: 24.8}
+      snapOffset: {x: 0, y: 0}
       snapOffsetDelta: {x: 0, y: 0}
       snapCorner: 0
       id: unity-scene-view-toolbar
@@ -736,7 +736,7 @@ MonoBehaviour:
       floating: 0
       collapsed: 0
       displayed: 1
-      snapOffset: {x: 0, y: 24.8}
+      snapOffset: {x: 0, y: 0}
       snapOffsetDelta: {x: 0, y: 0}
       snapCorner: 0
       id: unity-transform-toolbar

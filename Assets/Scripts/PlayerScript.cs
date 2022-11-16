@@ -23,6 +23,7 @@ public class PlayerScript : MonoBehaviourPunCallbacks
     public bool MyRockHave;
     bool isGround;
     bool SDown;
+    int Score=0;
     bool jDown;
     bool RollingKey;
     bool isJump;
@@ -141,7 +142,13 @@ public class PlayerScript : MonoBehaviourPunCallbacks
                 NotHaveRock();
             }
 
-            
+            if (GameManager.PlaysCount==1)
+            {
+                if (!Death)
+                {
+                    Score += 10;
+                }
+            }
         }
     }
 
@@ -234,6 +241,7 @@ public class PlayerScript : MonoBehaviourPunCallbacks
     public void Hit() //돌멩이에 맞았을때
     {   
             DeathEvent();
+            GameManager.PlaysCount--;
     }
 
     void CharDeath()

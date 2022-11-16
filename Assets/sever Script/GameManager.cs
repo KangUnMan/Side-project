@@ -17,6 +17,10 @@ public class GameManager : MonoBehaviour
 
     private Hashtable CP;
 
+    public float timer=0.0f;
+
+    public static int PlaysCount = PhotonNetwork.CountOfPlayers;
+
     private void Awake()
     {
         
@@ -37,11 +41,12 @@ public class GameManager : MonoBehaviour
         pv.GetComponent<PhotonView>();
         CP = PhotonNetwork.LocalPlayer.CustomProperties;
         CreatePlayer();
-        if(SceneManager.GetActiveScene().name=="TFGunStage")
+        if(SceneManager.GetActiveScene().name=="TFGunStage"&& PhotonNetwork.IsMasterClient)
         {   
-            for(int i=0; i<4; i++)
+            for(int i=0; i<2; i++)
             {
                 CreateRock();
+                
             } 
         }
     }
@@ -66,7 +71,17 @@ public class GameManager : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        
+        if (SceneManager.GetActiveScene().name == "TFGunStage")
+        {
+            timer += Time.deltaTime;
+        }
+       
+
+        if (timer >= 8.0f&& PhotonNetwork.IsMasterClient)
+        {
+            CreateRock();
+            timer = 0.0f;
+        }
     }
 
     

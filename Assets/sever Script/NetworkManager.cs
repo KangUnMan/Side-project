@@ -19,7 +19,7 @@ public class NetworkManager : MonoBehaviourPunCallbacks
         // 게임 버전 지정
         PhotonNetwork.GameVersion = gameVersion;
 
-        Screen.SetResolution(960, 540, false);
+        Screen.SetResolution(1440, 940, false);
         // 화면 크기 설정
         PhotonNetwork.SendRate = 60; // 넣으면 서버 동기화가 더 빨리 됨
 
@@ -41,7 +41,7 @@ public class NetworkManager : MonoBehaviourPunCallbacks
         if(PhotonNetwork.IsMasterClient) //방장만
         {
             PhotonNetwork.LocalPlayer.NickName += "(host)";
-            PhotonNetwork.LoadLevel("Stage 1");  //씬 이동
+            PhotonNetwork.LoadLevel("GameSelect");  //씬 이동
         }
     }
 
