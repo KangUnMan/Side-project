@@ -19,7 +19,7 @@ public class NetworkManager : MonoBehaviourPunCallbacks
         // 게임 버전 지정
         PhotonNetwork.GameVersion = gameVersion;
 
-        Screen.SetResolution(1440, 940, false);
+        Screen.SetResolution(940, 540, false);
         // 화면 크기 설정
         PhotonNetwork.SendRate = 60; // 넣으면 서버 동기화가 더 빨리 됨
 
