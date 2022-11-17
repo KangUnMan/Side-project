@@ -8,6 +8,8 @@ using TMPro;
 
 public class ChangeRoom : MonoBehaviour
 {
+    public static bool GameFinsh;
+    bool MapChanged=false;
     void Awake()
     {
         PhotonNetwork.AutomaticallySyncScene = true;
@@ -30,6 +32,10 @@ public class ChangeRoom : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        
+        if (GameFinsh&&!MapChanged)
+        {
+            PhotonNetwork.LoadLevel("WinnerStage");
+            MapChanged = true;
+        }
     }
 }

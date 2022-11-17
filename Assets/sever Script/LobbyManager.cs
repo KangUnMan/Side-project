@@ -29,7 +29,7 @@ public class LobbyManager : MonoBehaviour
         pv = GetComponent<PhotonView>();
         camera = Camera.main;
 
-        PhotonNetwork.LocalPlayer.SetCustomProperties(new Hashtable { { "Color", -1 } }); // 키 ,값으로 저장  찾을때 키값주면 됨 , 제일 빠르다고 한다.
+        PhotonNetwork.LocalPlayer.SetCustomProperties(new Hashtable { { "Color", -1 }}); // 키 ,값으로 저장  찾을때 키값주면 됨 , 제일 빠르다고 한다.
         CP = PhotonNetwork.LocalPlayer.CustomProperties;
     }
 

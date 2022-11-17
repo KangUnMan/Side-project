@@ -20,4 +20,7 @@ EditorBuildSettings:
   - enabled: 1
     path: Assets/Scenes/TFGunStage.unity
     guid: 33fe52d9008a2844e87ac0593706555b
+  - enabled: 1
+    path: Assets/Scenes/WinnerStage.unity
+    guid: 2fec2f79aa0b7054bbf7362b244c9c4b
   m_configObjects: {}

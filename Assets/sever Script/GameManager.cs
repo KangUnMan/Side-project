@@ -21,6 +21,7 @@ public class GameManager : MonoBehaviour
 
     public static int PlaysCount = PhotonNetwork.CountOfPlayers;
 
+    public int PlayerScore;
     private void Awake()
     {
         
@@ -40,7 +41,11 @@ public class GameManager : MonoBehaviour
       
         pv.GetComponent<PhotonView>();
         CP = PhotonNetwork.LocalPlayer.CustomProperties;
-        CreatePlayer();
+        if (SceneManager.GetActiveScene().name != "WinnerStage")
+        {
+            CreatePlayer();
+        }
+        
         if(SceneManager.GetActiveScene().name=="TFGunStage"&& PhotonNetwork.IsMasterClient)
         {   
             for(int i=0; i<2; i++)
@@ -48,6 +53,10 @@ public class GameManager : MonoBehaviour
                 CreateRock();
                 
             } 
+        }
+        if(SceneManager.GetActiveScene().name == "WinnerStage")
+        {
+            
         }
     }
 
@@ -82,6 +91,8 @@ public class GameManager : MonoBehaviour
             CreateRock();
             timer = 0.0f;
         }
+
+
     }
 
     

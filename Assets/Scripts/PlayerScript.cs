@@ -6,6 +6,8 @@ using Photon.Realtime;
 using UnityEngine.UI;
 using TMPro;
 using UnityStandardAssets.Utility;
+using UnityEngine.SceneManagement;
+
 public class PlayerScript : MonoBehaviourPunCallbacks
 {
     public Rigidbody RB;
@@ -13,6 +15,7 @@ public class PlayerScript : MonoBehaviourPunCallbacks
     public SpriteRenderer SR;
     public bool Death;
     public Transform FierePos;
+    public GameObject ScoreManager;
     public GameObject Rock; //돌멩이를 넣어줄 변수
     public Renderer HandRock;
     public PhotonView PV;
@@ -23,7 +26,7 @@ public class PlayerScript : MonoBehaviourPunCallbacks
     public bool MyRockHave;
     bool isGround;
     bool SDown;
-    int Score=0;
+    public bool Win;
     bool jDown;
     bool RollingKey;
     bool isJump;
@@ -50,8 +53,10 @@ public class PlayerScript : MonoBehaviourPunCallbacks
     }
     private void Start()
     {   //카메라 따라오기
+
         tr = GetComponent<Transform>();
         RB.gameObject.GetComponent<Rigidbody>();
+
         if (PV.IsMine)
             Camera.main.GetComponent<SmoothFollow>().target = tr.Find("CamPivot").transform;
     }
@@ -142,13 +147,7 @@ public class PlayerScript : MonoBehaviourPunCallbacks
                 NotHaveRock();
             }
 
-            if (GameManager.PlaysCount==1)
-            {
-                if (!Death)
-                {
-                    Score += 10;
-                }
-            }
+           
         }
     }
 
