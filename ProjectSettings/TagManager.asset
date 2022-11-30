@@ -9,6 +9,7 @@ TagManager:
   - Floor
   - Rock
   - ItemRock
+  - Follow
   layers:
   - Default
   - TransparentFX

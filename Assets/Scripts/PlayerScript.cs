@@ -7,6 +7,7 @@ using UnityEngine.UI;
 using TMPro;
 using UnityStandardAssets.Utility;
 using UnityEngine.SceneManagement;
+using Cinemachine;
 
 public class PlayerScript : MonoBehaviourPunCallbacks
 {
@@ -35,6 +36,7 @@ public class PlayerScript : MonoBehaviourPunCallbacks
     bool AttackDelay;
     bool RollingTimerSwitch;
     GameObject nearObject;
+    public GameObject cinemachine;
     float Rollingtimer = 0.0f; // 구르기 재사용대기시간 측정 타이머
     float Deathtimer = 0.0f; // 죽음 타이머
     float AttackDelaytimer = 0.0f; //연사 금지
@@ -50,19 +52,26 @@ public class PlayerScript : MonoBehaviourPunCallbacks
         NickNameText.text = PV.IsMine ? PhotonNetwork.NickName : PV.Owner.NickName; //자신의 닉네임과 상대방의 닉네임 구별
         NickNameText.color = PV.IsMine ? Color.black : Color.red; //자기 자신이면 블랙 상대일경우 레드
 
+
     }
     private void Start()
     {   //카메라 따라오기
-
         tr = GetComponent<Transform>();
         RB.gameObject.GetComponent<Rigidbody>();
 
         if (PV.IsMine)
-            Camera.main.GetComponent<SmoothFollow>().target = tr.Find("CamPivot").transform;
+        {
+            cinemachine = GameObject.FindGameObjectWithTag("Follow");
+            cinemachine.GetComponent<CinemachineFreeLook>().Follow= tr.Find("CamPivot").transform;
+            cinemachine.GetComponent<CinemachineFreeLook>().LookAt = tr.Find("CamPivot").transform;
+            Camera.main.GetComponent<LMS_Camera>().Player = GameObject.FindGameObjectWithTag("Player");
+            Camera.main.GetComponent<LMS_Camera>().target = GameObject.Find("CamPviot");
+        }
+            
     }
     void Update()
     {   
-        if (PV.IsMine) //자신일경우
+        if (PV.IsMine) //자신일경우 
         {
             // 플레이어 이동
             float axis = Input.GetAxis("Horizontal");
@@ -71,22 +80,28 @@ public class PlayerScript : MonoBehaviourPunCallbacks
             jDown = Input.GetButtonDown("Jump");
             RollingKey = Input.GetButtonDown("Rolling");
             Throwkey = Input.GetButtonDown("Fire1");
+            Vector3 moveX, moveZ;
 
-            moveVec = new Vector3(axis, 0, ver)*speed;
+            moveX = transform.right * axis;
+            moveZ = transform.forward * ver;
+
+            moveVec = new Vector3(0, 0, ver)*speed;
             if(isRolling )
             {
                 moveVec = RollingVec;
             }
 
+            moveVec = (moveX + moveZ).normalized * speed;
+            RB.velocity = moveVec;
             if (SDown && Death != true && AttackDelay != true)
             {
                 RB.velocity = moveVec*1.2f;
-                transform.LookAt(transform.position + moveVec);      
+                  
             }
             else if (Death != true && AttackDelay != true)
             {
                 RB.velocity = moveVec;
-                transform.LookAt(transform.position + moveVec);         
+                        
             }
 
             if (axis != 0 || ver != 0)

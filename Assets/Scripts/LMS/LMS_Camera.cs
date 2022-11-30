@@ -27,23 +27,27 @@ public class LMS_Camera : MonoBehaviour
 
     private void Update()
     {
-        mouseX = Input.GetAxis("Mouse Y");
-        mouseY = Input.GetAxis("Mouse X");
-        eulerAngleX += rotateCamXAxisSpeed * -mouseX;
-        eulerAngleY += rotateCamYAxisSpeed * mouseY;
-        if(eulerAngleX > 360)
+        if (Input.GetMouseButton(1))
         {
-            eulerAngleX -= 360;
-        }
-        else if (eulerAngleX < -360)
-        {
-            eulerAngleX += 360;
-        }
-        eulerAngleX = Mathf.Clamp(eulerAngleX, limitMinX, limitMaxX);
-        Player.GetComponent<Transform>().rotation = Quaternion.Euler(0, eulerAngleY, 0);
-        Player.GetComponent<Rigidbody>().rotation = Quaternion.Euler(0, eulerAngleY, 0);
-        transform.rotation = Quaternion.Euler(eulerAngleX, eulerAngleY, 0);
+            mouseX = Input.GetAxis("Mouse Y");
+            mouseY = Input.GetAxis("Mouse X");
+            eulerAngleX += rotateCamXAxisSpeed * -mouseX;
+            eulerAngleY += rotateCamYAxisSpeed * mouseY;
+            if (eulerAngleX > 360)
+            {
+                eulerAngleX -= 360;
+            }
+            else if (eulerAngleX < -360)
+            {
+                eulerAngleX += 360;
+            }
+            eulerAngleX = Mathf.Clamp(eulerAngleX, limitMinX, limitMaxX);
+            Player.GetComponent<Transform>().rotation = Quaternion.Euler(0, eulerAngleY, 0);
+            Player.GetComponent<Rigidbody>().rotation = Quaternion.Euler(0, eulerAngleY, 0);
+            transform.rotation = Quaternion.Euler(eulerAngleX, eulerAngleY, 0);
 
+
+        }
     }
 
     // Update is called once per frame
