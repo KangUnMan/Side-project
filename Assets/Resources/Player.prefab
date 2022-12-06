@@ -4386,6 +4386,8 @@ MonoBehaviour:
   MyRockHave: 0
   Win: 0
   cinemachine: {fileID: 0}
+  score: 0
+  ScoreSyn: 0
   playerMt:
   - {fileID: 2100000, guid: 90b9f2b6aa49c5f48b2270d16beee8da, type: 2}
   - {fileID: 2100000, guid: c83eff55c9ac8524bb815980b06c33ec, type: 2}

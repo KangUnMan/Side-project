@@ -6,6 +6,8 @@ using UnityEngine.SceneManagement;
 using Photon.Realtime;
 using UnityEngine.UI;
 using Hashtable = ExitGames.Client.Photon.Hashtable;
+using System;
+using Random = UnityEngine.Random;
 
 public class GameManager : MonoBehaviour
 {
@@ -18,10 +20,6 @@ public class GameManager : MonoBehaviour
     private Hashtable CP;
 
     public float timer=0.0f;
-
-    public static int PlaysCount = PhotonNetwork.CountOfPlayers;
-
-    public int PlayerScore;
     private void Awake()
     {
         
@@ -92,7 +90,7 @@ public class GameManager : MonoBehaviour
             timer = 0.0f;
         }
 
-
+       
     }
 
     

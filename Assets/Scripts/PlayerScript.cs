@@ -40,6 +40,8 @@ public class PlayerScript : MonoBehaviourPunCallbacks
     float Rollingtimer = 0.0f; // 구르기 재사용대기시간 측정 타이머
     float Deathtimer = 0.0f; // 죽음 타이머
     float AttackDelaytimer = 0.0f; //연사 금지
+    public int score = 0;
+    public int ScoreSyn = 0;
     Vector3 moveVec;
     Vector3 RollingVec;
     public Material[] playerMt;
@@ -255,7 +257,23 @@ public class PlayerScript : MonoBehaviourPunCallbacks
     public void Hit() //돌멩이에 맞았을때
     {   
             DeathEvent();
-            GameManager.PlaysCount--;
+        if (GetComponent<TFGunWinner>().PlaysCount == 4)
+        {
+            score = 4;
+        }
+        else if (GetComponent<TFGunWinner>().PlaysCount == 3)
+        {
+            score = 6;
+        }
+        else if (GetComponent<TFGunWinner>().PlaysCount == 2)
+        {
+            score = 8;
+        }
+        else if (GetComponent<TFGunWinner>().PlaysCount == 1)
+        {
+            score = 10;
+        }
+        GetComponent<TFGunWinner>().PlaysCount--;
     }
 
     void CharDeath()
