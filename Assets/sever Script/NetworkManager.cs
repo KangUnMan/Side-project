@@ -33,6 +33,7 @@ public class NetworkManager : MonoBehaviourPunCallbacks
     {
         PhotonNetwork.LocalPlayer.NickName = NickNameInput.text; // 닉네임 인풋필드에 적은걸로 부여 
         PhotonNetwork.JoinOrCreateRoom("Room", new RoomOptions { MaxPlayers = 6 }, null); //JoinOrCreateRoom 은 룸이 존재 하지 않는다면 룸을 생성
+        
     }
     public override void OnJoinedRoom() // 방에 입장했을때 호출됨
     {
