@@ -1,4 +1,4 @@
-﻿// <copyright file="ScoreHelper.cs" company="Exit Games GmbH">
+// <copyright file="ScoreHelper.cs" company="Exit Games GmbH">
 //   Part of: Pun Cockpit
 // </copyright>
 // <author>developer@exitgames.com</author>

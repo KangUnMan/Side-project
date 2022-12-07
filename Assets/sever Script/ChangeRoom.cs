@@ -9,12 +9,10 @@ using TMPro;
 public class ChangeRoom : MonoBehaviour
 {
     public static bool GameFinsh;
-    GameObject ScoreManager;
     bool MapChanged=false;
     void Awake()
     {
         PhotonNetwork.AutomaticallySyncScene = true;
-        ScoreManager = GameObject.Find("ScoreManager");
     }
     // Start is called before the first frame update
     void Start()
@@ -26,8 +24,6 @@ public class ChangeRoom : MonoBehaviour
     {
         if (PhotonNetwork.IsMasterClient) //방장만
         {
-            ScoreManager.GetComponent<ScoreManager>().PlayerScores();
-            ScoreManager.GetComponent<ScoreManager>().EndGame();
             PhotonNetwork.LoadLevel("TFGunStage");  //씬 이동
         }
     }

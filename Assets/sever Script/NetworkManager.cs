@@ -4,6 +4,7 @@ using UnityEngine;
 using Photon.Pun;
 using Photon.Realtime;
 using UnityEngine.UI;
+using Photon.Pun.UtilityScripts;
 using TMPro;
 public class NetworkManager : MonoBehaviourPunCallbacks
 {
@@ -31,7 +32,8 @@ public class NetworkManager : MonoBehaviourPunCallbacks
 
     public void OnstartBtn()
     {
-        PhotonNetwork.LocalPlayer.NickName = NickNameInput.text; // 닉네임 인풋필드에 적은걸로 부여 
+        PhotonNetwork.LocalPlayer.NickName = NickNameInput.text; // 닉네임 인풋필드에 적은걸로 부여
+        PhotonNetwork.LocalPlayer.SetScore(0); // 스코어 초기화
         PhotonNetwork.JoinOrCreateRoom("Room", new RoomOptions { MaxPlayers = 6 }, null); //JoinOrCreateRoom 은 룸이 존재 하지 않는다면 룸을 생성
         
     }

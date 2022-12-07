@@ -40,7 +40,7 @@ public class DBManager : MonoBehaviour  // 사용시 필히 DB테이블 조회�
     public static string LoginCheck(string UID)
     {
         string password = "1234";       // 로그인 창에서 password 받아오기
-        string url = $"http://localhost:8081/demo_war_exploded/hello-servlet?action=loginCheck&UID={UID}";
+        string url = $"https://projectside.azurewebsites.net?action=loginCheck&UID={UID}";
         string responseText = string.Empty;
         HttpWebRequest request = (HttpWebRequest)WebRequest.Create(url);
         request.Method = "GET";
