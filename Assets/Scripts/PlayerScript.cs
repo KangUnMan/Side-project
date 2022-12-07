@@ -7,6 +7,7 @@ using UnityEngine.UI;
 using TMPro;
 using UnityStandardAssets.Utility;
 using UnityEngine.SceneManagement;
+using Photon.Pun.UtilityScripts;
 using Cinemachine;
 
 public class PlayerScript : MonoBehaviourPunCallbacks
@@ -162,9 +163,12 @@ public class PlayerScript : MonoBehaviourPunCallbacks
                 AttackDelay = true;
                 MyRockHave = false;
                 NotHaveRock();
+            }         
+            
+            if(SceneManager.GetActiveScene().name == "TFGunStage" && TFGunWinner.PlaysCount==1)
+            {
+                TFGunWinner.EndMyTFGame();
             }
-
-           
         }
     }
 
@@ -255,27 +259,10 @@ public class PlayerScript : MonoBehaviourPunCallbacks
     }
 
     public void Hit() //돌멩이에 맞았을때
-    {   
-            DeathEvent();
-        if (GetComponent<TFGunWinner>().PlaysCount == 4)
-        {
-            score = 4;
-        }
-        else if (GetComponent<TFGunWinner>().PlaysCount == 3)
-        {
-            score = 6;
-        }
-        else if (GetComponent<TFGunWinner>().PlaysCount == 2)
-        {
-            score = 8;
-        }
-        else if (GetComponent<TFGunWinner>().PlaysCount == 1)
-        {
-            score = 10;
-        }
-        GetComponent<TFGunWinner>().PlaysCount--;
+    {
+        TFGunWinner.EndMyTFGame();
+        DeathEvent();
     }
-
     void CharDeath()
     {
         PV.RPC("DestroyRPC", RpcTarget.AllBuffered);
