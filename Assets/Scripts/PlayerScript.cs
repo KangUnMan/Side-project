@@ -15,7 +15,7 @@ public class PlayerScript : MonoBehaviourPunCallbacks
     public Rigidbody RB;
     public Animator AN;
     public SpriteRenderer SR;
-    public bool Death;
+    static public bool Death;
     public Transform FierePos;
     public GameObject ScoreManager;
     public GameObject Rock; //돌멩이를 넣어줄 변수
@@ -42,7 +42,6 @@ public class PlayerScript : MonoBehaviourPunCallbacks
     float Deathtimer = 0.0f; // 죽음 타이머
     float AttackDelaytimer = 0.0f; //연사 금지
     public int score = 0;
-    public int ScoreSyn = 0;
     Vector3 moveVec;
     Vector3 RollingVec;
     public Material[] playerMt;
@@ -163,12 +162,9 @@ public class PlayerScript : MonoBehaviourPunCallbacks
                 AttackDelay = true;
                 MyRockHave = false;
                 NotHaveRock();
-            }         
-            
-            if(SceneManager.GetActiveScene().name == "TFGunStage" && TFGunWinner.PlaysCount==1)
-            {
-                TFGunWinner.EndMyTFGame();
             }
+            score = PhotonNetwork.LocalPlayer.GetScore();
+            
         }
     }
 
@@ -233,7 +229,6 @@ public class PlayerScript : MonoBehaviourPunCallbacks
             Invoke("RollingOut", 0.6f);
         }
     }
-
     void DeathEvent()
     {
         AN.SetTrigger("doDeath");
@@ -260,7 +255,7 @@ public class PlayerScript : MonoBehaviourPunCallbacks
 
     public void Hit() //돌멩이에 맞았을때
     {
-        TFGunWinner.EndMyTFGame();
+       // PV.RPC("EndGameRPC", RpcTarget.AllBuffered);
         DeathEvent();
     }
     void CharDeath()
@@ -278,9 +273,17 @@ public class PlayerScript : MonoBehaviourPunCallbacks
     }
 
     [PunRPC]
+
+    void EndGameRPC()
+    {
+        TFGunWinner.EndMyTFGame();
+     }
+
+    
+    [PunRPC]
     void DestroyRPC()
     {
-        Destroy(gameObject);
+       PhotonNetwork.Destroy(gameObject);
     } 
 
     public override void OnPlayerEnteredRoom(Player newPlayer) //방에 들어오기전 상대플레이어가 색을 바꿨을경우 동기화 메소드

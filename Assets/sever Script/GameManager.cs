@@ -22,7 +22,8 @@ public class GameManager : MonoBehaviour
     public float timer=0.0f;
     private void Awake()
     {
-        
+
+        PhotonNetwork.AutomaticallySyncScene = true;
 
         if (instance = null){
             instance = this;
@@ -39,10 +40,8 @@ public class GameManager : MonoBehaviour
       
         pv.GetComponent<PhotonView>();
         CP = PhotonNetwork.LocalPlayer.CustomProperties;
-        if (SceneManager.GetActiveScene().name != "WinnerStage")
-        {
             CreatePlayer();
-        }
+     
         
         if(SceneManager.GetActiveScene().name=="TFGunStage"&& PhotonNetwork.IsMasterClient)
         {   
@@ -81,6 +80,12 @@ public class GameManager : MonoBehaviour
         if (SceneManager.GetActiveScene().name == "TFGunStage")
         {
             timer += Time.deltaTime;
+            //리스폰 넣을 자리      
+            if (PhotonNetwork.IsMasterClient)
+            {
+                ChangeRoom.EndAllGame();
+            }
+         
         }
        
 

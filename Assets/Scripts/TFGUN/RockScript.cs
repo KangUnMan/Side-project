@@ -37,6 +37,6 @@ public class RockScript : MonoBehaviourPunCallbacks
 
     void DestroyRPC()
     {
-        Destroy(gameObject);
+        PhotonNetwork.Destroy(gameObject);
     }
 }

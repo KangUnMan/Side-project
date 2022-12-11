@@ -4373,7 +4373,6 @@ MonoBehaviour:
   RB: {fileID: 8442915042146774119}
   AN: {fileID: 3494792687996896274}
   SR: {fileID: 7071631735625987465}
-  Death: 0
   FierePos: {fileID: 810302077478823443}
   ScoreManager: {fileID: 0}
   Rock: {fileID: 0}
@@ -4387,7 +4386,6 @@ MonoBehaviour:
   Win: 0
   cinemachine: {fileID: 0}
   score: 0
-  ScoreSyn: 0
   playerMt:
   - {fileID: 2100000, guid: 90b9f2b6aa49c5f48b2270d16beee8da, type: 2}
   - {fileID: 2100000, guid: c83eff55c9ac8524bb815980b06c33ec, type: 2}

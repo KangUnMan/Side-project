@@ -5,11 +5,11 @@ using Photon.Pun;
 using Photon.Realtime;
 using UnityEngine.UI;
 using TMPro;
+using UnityEngine.SceneManagement;
 
 public class ChangeRoom : MonoBehaviour
 {
     public static bool GameFinsh;
-    bool MapChanged=false;
     void Awake()
     {
         PhotonNetwork.AutomaticallySyncScene = true;
@@ -20,6 +20,16 @@ public class ChangeRoom : MonoBehaviour
         
     }
 
+    static public void EndAllGame()
+    {
+        
+            if (TFGunWinner.TFGameRoundEnd)
+            {
+                PhotonNetwork.LoadLevel("GameSelect");
+                TFGunWinner.TFGameRoundEnd = false;
+            }
+        
+    }
     public void OnChangeBtn()
     {
         if (PhotonNetwork.IsMasterClient) //방장만
@@ -41,10 +51,6 @@ public class ChangeRoom : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        if (GameFinsh&&!MapChanged)
-        {
-            PhotonNetwork.LoadLevel("WinnerStage");
-            MapChanged = true;
-        }
+      
     }
 }

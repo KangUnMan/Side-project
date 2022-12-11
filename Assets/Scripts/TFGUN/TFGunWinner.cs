@@ -8,6 +8,7 @@ using Photon.Pun.UtilityScripts;
 public class TFGunWinner : MonoBehaviour
 {
     public static int PlaysCount;// 들어온 인원 수
+    public static bool TFGameRoundEnd;
     private void Awake()
     {
         PlaysCount = PhotonNetwork.CountOfPlayers; //초기에 설정
@@ -35,8 +36,11 @@ public class TFGunWinner : MonoBehaviour
         else if (PlaysCount == 1)
         {
             PhotonNetwork.LocalPlayer.AddScore(10);
+            TFGameRoundEnd = true;
+
         }
         PlaysCount--;
     }
    
+    
 }
