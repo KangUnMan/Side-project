@@ -270,7 +270,9 @@ public class PlayerScript : MonoBehaviourPunCallbacks
 
     void RespawnAni()
     {
+        transform.position=new Vector3(Random.Range(-10f, 10f), 0, 0);
         PV.RPC("RespawnAniRPC", RpcTarget.AllBuffered);
+
     }
     [PunRPC]
     void NotHaveRockRPC()
