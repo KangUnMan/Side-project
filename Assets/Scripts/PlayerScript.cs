@@ -15,12 +15,14 @@ public class PlayerScript : MonoBehaviourPunCallbacks
     public Rigidbody RB;
     public Animator AN;
     public SpriteRenderer SR;
-    static public bool Death;
+    bool Death = false;
+    bool DeathEventBool = false;
     public Transform FierePos;
     public GameObject ScoreManager;
     public GameObject Rock; //돌멩이를 넣어줄 변수
     public Renderer HandRock;
     public PhotonView PV;
+    public GameObject cc;
     public TMPro.TMP_Text NickNameText;
     public GameObject Player;
     public GameObject underWare;
@@ -39,7 +41,6 @@ public class PlayerScript : MonoBehaviourPunCallbacks
     GameObject nearObject;
     public GameObject cinemachine;
     float Rollingtimer = 0.0f; // 구르기 재사용대기시간 측정 타이머
-    float Deathtimer = 0.0f; // 죽음 타이머
     float AttackDelaytimer = 0.0f; //연사 금지
     public int score = 0;
     Vector3 moveVec;
@@ -53,7 +54,7 @@ public class PlayerScript : MonoBehaviourPunCallbacks
         NickNameText.text = photonView.Owner.NickName;
         NickNameText.text = PV.IsMine ? PhotonNetwork.NickName : PV.Owner.NickName; //자신의 닉네임과 상대방의 닉네임 구별
         NickNameText.color = PV.IsMine ? Color.black : Color.red; //자기 자신이면 블랙 상대일경우 레드
-
+        
 
     }
     private void Start()
@@ -129,9 +130,10 @@ public class PlayerScript : MonoBehaviourPunCallbacks
                 Rollingtimer += Time.deltaTime;
             }
 
-            if (Death == true)
+            if (DeathEventBool == true)
             {
-                Deathtimer += Time.deltaTime;
+                DeathEventBool = false;
+                StartCoroutine(PlayerDie());
             }
             if (AttackDelay == true)
             {
@@ -141,12 +143,6 @@ public class PlayerScript : MonoBehaviourPunCallbacks
             {
                 AttackDelay = false;
                 AttackDelaytimer = 0.0f;
-            }
-            if (Deathtimer >= 1.3f) // 1초가  
-            {
-                CharDeath();
-                Death = false;
-                Rollingtimer = 0;
             }
 
             if (Rollingtimer >= 3) // 4초가  
@@ -231,8 +227,10 @@ public class PlayerScript : MonoBehaviourPunCallbacks
     }
     void DeathEvent()
     {
+        Respawnfalse();
         AN.SetTrigger("doDeath");
         Death = true;
+        DeathEventBool = true;
     }
     //구르기시 속도와 체크
     void RollingOut()
@@ -255,21 +253,49 @@ public class PlayerScript : MonoBehaviourPunCallbacks
 
     public void Hit() //돌멩이에 맞았을때
     {
-       // PV.RPC("EndGameRPC", RpcTarget.AllBuffered);
         DeathEvent();
     }
     void CharDeath()
     {
         PV.RPC("DestroyRPC", RpcTarget.AllBuffered);
     }
+    void CharRespawn()
+    {
+        PV.RPC("RespawnRPC", RpcTarget.AllBuffered);
+    }
     void NotHaveRock()
     {
         PV.RPC("NotHaveRockRPC", RpcTarget.AllBuffered);
+    }
+
+    void RespawnAni()
+    {
+        PV.RPC("RespawnAniRPC", RpcTarget.AllBuffered);
     }
     [PunRPC]
     void NotHaveRockRPC()
     {
         HandRock.enabled = false;
+    }
+    void Respawnfalse()
+    {
+        PV.RPC("RespawnfalseRPC", RpcTarget.AllBuffered);
+    }
+    [PunRPC]
+    void RespawnfalseRPC()
+    {
+        AN.SetBool("Respawn", false);
+    }
+
+    IEnumerator PlayerDie()
+    {
+        yield return new WaitForSeconds(2.0f);
+        CharDeath();
+        Rollingtimer = 0;
+        RespawnAni();
+        yield return new WaitForSeconds(3.0f);
+        CharRespawn();
+        Death = false;
     }
 
     [PunRPC]
@@ -282,10 +308,20 @@ public class PlayerScript : MonoBehaviourPunCallbacks
     
     [PunRPC]
     void DestroyRPC()
-    {
-       PhotonNetwork.Destroy(gameObject);
-    } 
+    {   
+        cc.SetActive(false);
+    }
 
+    [PunRPC]
+    void RespawnRPC()
+    {
+        cc.SetActive(true);
+    }
+    [PunRPC]
+    void RespawnAniRPC()
+    {
+        AN.SetBool("Respawn", true);
+    }
     public override void OnPlayerEnteredRoom(Player newPlayer) //방에 들어오기전 상대플레이어가 색을 바꿨을경우 동기화 메소드
     {
         if(PV.IsMine && idxMt != -1)

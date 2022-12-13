@@ -61,7 +61,7 @@ public class GameManager : MonoBehaviour
     {
         
 
-        GameObject playerTemp = PhotonNetwork.Instantiate("Player", new Vector3(Random.Range(-30f, 30f),0,0), Quaternion.identity);
+        GameObject playerTemp = PhotonNetwork.Instantiate("Player", new Vector3(Random.Range(-10f, 10f),0,0), Quaternion.identity);
 
         int colorNum = (int)CP["Color"];
         if(colorNum != 1)
@@ -89,7 +89,7 @@ public class GameManager : MonoBehaviour
         }
        
 
-        if (timer >= 8.0f&& PhotonNetwork.IsMasterClient)
+        if (timer >= 10.0f&& PhotonNetwork.IsMasterClient)
         {
             CreateRock();
             timer = 0.0f;

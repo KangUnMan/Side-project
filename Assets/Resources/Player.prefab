@@ -4355,6 +4355,9 @@ MonoBehaviour:
   - Type: 9
     SynchronizeType: 1
     Name: doThrow
+  - Type: 9
+    SynchronizeType: 0
+    Name: Respawn
   m_SynchronizeLayers:
   - SynchronizeType: 0
     LayerIndex: 0
@@ -4378,6 +4381,7 @@ MonoBehaviour:
   Rock: {fileID: 0}
   HandRock: {fileID: 362277732672562420}
   PV: {fileID: 2290679949891231757}
+  cc: {fileID: 3239959197644332478}
   NickNameText: {fileID: 8421857590706318771}
   Player: {fileID: 5874565010390821258}
   underWare: {fileID: 1655483536609621364}
