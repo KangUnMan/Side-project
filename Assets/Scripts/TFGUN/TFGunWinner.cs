@@ -8,8 +8,9 @@ using UnityEngine.SceneManagement;
 
 public class TFGunWinner : MonoBehaviour
 {
-    public static int PlaysCount;// 들어온 인원 수
+    public static int PlaysCount=99;// 들어온 인원 수
     public static bool TFGameRoundEnd;
+    bool CountOn;
     public GameObject ResultPnl;
     public PhotonView PV;
     int count = 0;
@@ -22,11 +23,15 @@ public class TFGunWinner : MonoBehaviour
 
     private void Start()
     {
-        PlaysCount = PhotonNetwork.CountOfPlayers; //초기에 설정
-        Debug.Log(PlaysCount);
+      
     }
     void Update()
     {
+        if (CountOn != true)
+        {
+            CountOn = true;
+            StartCoroutine(PlayerCountStart());
+        }
        if(PlaysCount==0&&PhotonNetwork.IsMasterClient&&count==0)
         {
             TFGameRoundEndGame();
@@ -50,5 +55,12 @@ public class TFGunWinner : MonoBehaviour
     {
         ResultPnl.SetActive(true);
 
+    }
+
+    IEnumerator PlayerCountStart()
+    {
+        yield return new WaitForSeconds(2.0f);
+        PlaysCount = PhotonNetwork.CountOfPlayers; //인원수 설정
+        Debug.Log(PlaysCount);
     }
 }
