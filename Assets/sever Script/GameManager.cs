@@ -51,10 +51,6 @@ public class GameManager : MonoBehaviour
                 
             } 
         }
-        if(SceneManager.GetActiveScene().name == "WinnerStage")
-        {
-            
-        }
     }
 
     void CreatePlayer()
@@ -79,13 +75,7 @@ public class GameManager : MonoBehaviour
     {
         if (SceneManager.GetActiveScene().name == "TFGunStage")
         {
-            timer += Time.deltaTime;
-            //리스폰 넣을 자리      
-            if (PhotonNetwork.IsMasterClient)
-            {
-                ChangeRoom.EndAllGame();
-            }
-         
+            timer += Time.deltaTime; 
         }
        
 

@@ -4385,7 +4385,7 @@ MonoBehaviour:
   NickNameText: {fileID: 8421857590706318771}
   Player: {fileID: 5874565010390821258}
   underWare: {fileID: 1655483536609621364}
-  speed: 10
+  speed: 20
   MyRockHave: 0
   Win: 0
   cinemachine: {fileID: 0}

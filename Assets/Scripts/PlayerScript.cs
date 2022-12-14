@@ -26,7 +26,7 @@ public class PlayerScript : MonoBehaviourPunCallbacks
     public TMPro.TMP_Text NickNameText;
     public GameObject Player;
     public GameObject underWare;
-    public float speed = 10.0f;
+    public float speed = 20.0f;
     public bool MyRockHave;
     bool isGround;
     bool SDown;
@@ -160,7 +160,7 @@ public class PlayerScript : MonoBehaviourPunCallbacks
                 NotHaveRock();
             }
             score = PhotonNetwork.LocalPlayer.GetScore();
-            
+          
         }
     }
 
@@ -300,17 +300,12 @@ public class PlayerScript : MonoBehaviourPunCallbacks
         Death = false;
     }
 
-    [PunRPC]
-
-    void EndGameRPC()
-    {
-        TFGunWinner.EndMyTFGame();
-     }
-
-    
+   
+  
     [PunRPC]
     void DestroyRPC()
-    {   
+    {
+        TFGunWinner.EndMyTFGame();
         cc.SetActive(false);
     }
 

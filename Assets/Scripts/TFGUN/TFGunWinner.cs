@@ -4,43 +4,51 @@ using UnityEngine;
 using Photon.Pun;
 using Photon.Realtime;
 using Photon.Pun.UtilityScripts;
+using UnityEngine.SceneManagement;
 
 public class TFGunWinner : MonoBehaviour
 {
     public static int PlaysCount;// 들어온 인원 수
     public static bool TFGameRoundEnd;
+    public GameObject ResultPnl;
+    public PhotonView PV;
+    int count = 0;
     private void Awake()
     {
-        PlaysCount = PhotonNetwork.CountOfPlayers; //초기에 설정
+           
+       
     }
     // Update is called once per frame
+
+    private void Start()
+    {
+        PlaysCount = PhotonNetwork.CountOfPlayers; //초기에 설정
+        Debug.Log(PlaysCount);
+    }
     void Update()
     {
-
+       if(PlaysCount==0&&PhotonNetwork.IsMasterClient&&count==0)
+        {
+            TFGameRoundEndGame();
+            count++;
+        }
+        
     }
 
     static public void EndMyTFGame()
     {
-        if (PlaysCount == 4)
-        {
-            PhotonNetwork.LocalPlayer.AddScore(4);
-        }
-        else if(PlaysCount == 3)
-        {
-            PhotonNetwork.LocalPlayer.AddScore(6);
-        }
-        else if (PlaysCount == 2)
-        {
-            PhotonNetwork.LocalPlayer.AddScore(8);
-        }
-        else if (PlaysCount == 1)
-        {
-            PhotonNetwork.LocalPlayer.AddScore(10);
-            TFGameRoundEnd = true;
-
-        }
         PlaysCount--;
+        Debug.Log(PlaysCount);
     }
-   
-    
+
+    void TFGameRoundEndGame()
+    {
+        PV.RPC("TFGameRoundEndGameRPC", RpcTarget.AllBuffered);
+    }
+    [PunRPC]
+    void TFGameRoundEndGameRPC()
+    {
+        ResultPnl.SetActive(true);
+
+    }
 }

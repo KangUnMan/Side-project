@@ -9,7 +9,6 @@ using UnityEngine.SceneManagement;
 
 public class ChangeRoom : MonoBehaviour
 {
-    public static bool GameFinsh;
     void Awake()
     {
         PhotonNetwork.AutomaticallySyncScene = true;
@@ -20,16 +19,14 @@ public class ChangeRoom : MonoBehaviour
         
     }
 
-    static public void EndAllGame()
+    public void OnTFRusltChangeBtn()
     {
-        
-            if (TFGunWinner.TFGameRoundEnd)
-            {
-                PhotonNetwork.LoadLevel("GameSelect");
-                TFGunWinner.TFGameRoundEnd = false;
-            }
-        
+        if (PhotonNetwork.IsMasterClient) //방장만
+        {
+            PhotonNetwork.LoadLevel("GameSelect");  //씬 이동
+        }
     }
+
     public void OnChangeBtn()
     {
         if (PhotonNetwork.IsMasterClient) //방장만
