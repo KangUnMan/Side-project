@@ -16,11 +16,11 @@ public class Queue : MonoBehaviour
         MAX = size;
     }
 
-    public bool queueisEmpty()
+    public bool isEmpty()
     { //queue에 아무것도 들어있지 않은지 판단하는 함수
         return front == rear;
     }
-    public bool queueisFull()
+    public bool isFull()
     {    //queue가 가득 차 공간이 없는지 판단하는 함수
         if (rear == MAX - 1)
         {
@@ -35,7 +35,7 @@ public class Queue : MonoBehaviour
     }
     public void push(string value)
     {
-        if (queueisFull())
+        if (isFull())
         {
             Debug.Log("Queue is Full");
             return;
@@ -44,7 +44,7 @@ public class Queue : MonoBehaviour
     }
     public string pop()
     {
-        if (queueisEmpty())
+        if (isEmpty())
         {
             Debug.Log("Queue is Empty");
             return "Queue is Empty";
@@ -54,7 +54,7 @@ public class Queue : MonoBehaviour
     }
     public string peek()
     {
-        if (queueisEmpty())
+        if (isEmpty())
         {
             Debug.Log("Queue is Empty");
             return "Queue is Empty";
