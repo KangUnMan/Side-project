@@ -6,6 +6,7 @@ using Photon.Realtime;
 using Photon.Pun.UtilityScripts;
 using UnityEngine.SceneManagement;
 using TMPro;
+using UnityEditor.Search;
 
 public class DeathRunWinner : MonoBehaviour
 {
@@ -14,6 +15,14 @@ public class DeathRunWinner : MonoBehaviour
     public TMP_Text WinnerNick;
     public PhotonView PV;
     string winnernickname;
+    private int count = 0;
+
+    string message = string.Empty;
+    Queue queue;
+    private void Awake()
+    {
+        queue = new Queue(PhotonNetwork.CurrentRoom.Players.Count);
+    }
     private void Update()
     {
         if (DeathRunGameRoundEnd)
@@ -26,8 +35,13 @@ public class DeathRunWinner : MonoBehaviour
     {
         if (other.tag == "Player")
         {
-            winnernickname =other.gameObject.GetComponent<PlayerScript>().nickname;
-            DeathRunGameRoundEnd = true;
+           // winnernickname =other.gameObject.GetComponent<PlayerScript>().nickname;
+            count++;
+            queue.push(other.gameObject.GetComponent<PlayerScript>().nickname);
+            if(count >= PhotonNetwork.CurrentRoom.Players.Count || queue.isFull())
+            {
+                DeathRunGameRoundEnd = true;
+            }
             other.gameObject.GetComponent<PlayerScript>().Death = true;
 
         }
@@ -40,9 +54,18 @@ public class DeathRunWinner : MonoBehaviour
     void DeathRunEndGameRPC()
     {
         string win = winnernickname;
-        WinnerNick.SetText(win+"님 우승 축하드립니다!");
+        int rank = 0;
+        while (!queue.isEmpty())
+        {
+            rank++;
+            message += rank+"등은 "+queue.pop()+"\n";
+        }
+       // WinnerNick.SetText(win+"님 우승 축하드립니다!");
         ResultPnl.SetActive(true);
 
     }
+
+
+    
 
 }

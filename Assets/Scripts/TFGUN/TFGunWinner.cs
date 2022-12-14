@@ -14,10 +14,10 @@ public class TFGunWinner : MonoBehaviour
     public GameObject ResultPnl;
     public PhotonView PV;
     int count = 0;
+    Queue queue;
     private void Awake()
     {
-           
-       
+        queue = new Queue(PhotonNetwork.CurrentRoom.Players.Count);
     }
     // Update is called once per frame
 
