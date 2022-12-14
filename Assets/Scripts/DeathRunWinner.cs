@@ -6,7 +6,6 @@ using Photon.Realtime;
 using Photon.Pun.UtilityScripts;
 using UnityEngine.SceneManagement;
 using TMPro;
-using UnityEditor.Search;
 
 public class DeathRunWinner : MonoBehaviour
 {
@@ -37,7 +36,7 @@ public class DeathRunWinner : MonoBehaviour
     {
         if (other.tag == "Player")
         {
-           // winnernickname =other.gameObject.GetComponent<PlayerScript>().nickname;
+           
             count++;
             queue.push(other.gameObject.GetComponent<PlayerScript>().nickname);
             Debug.Log("Queue push");

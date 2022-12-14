@@ -59,6 +59,8 @@ MonoBehaviour:
   - TFGameRoundEndGameRPC
   - DeathRunEndGameRPC
   - TFGameOutRPC
+  - TFGAMERunEndGameRPC
+  - TFGAMEEndGameRPC
   DisableAutoOpenWizard: 1
   ShowSettings: 1
   DevRegionSetOnce: 1

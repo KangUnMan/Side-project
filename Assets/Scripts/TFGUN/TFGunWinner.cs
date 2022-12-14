@@ -12,6 +12,7 @@ public class TFGunWinner : MonoBehaviour
     public static bool TFGameRoundEnd;
     bool CountOn;
     public GameObject ResultPnl;
+    public GameObject GoldCup;
     public PhotonView PV;
     int count = 0;
     Queue queue;
@@ -28,9 +29,10 @@ public class TFGunWinner : MonoBehaviour
     void Update()
     {
 
-       if(PlaysCount==0&&PhotonNetwork.IsMasterClient&&count==0)
+       if(PlaysCount==1&&count==0)
         {
-            TFGameRoundEndGame();
+            GoldCup.SetActive(true);
+            //TFGameRoundEndGame();
             count++;
         }
         
@@ -40,17 +42,6 @@ public class TFGunWinner : MonoBehaviour
     {
         PlaysCount--;
         Debug.Log(PlaysCount);
-    }
-
-    void TFGameRoundEndGame()
-    {
-        PV.RPC("TFGameRoundEndGameRPC", RpcTarget.AllBuffered);
-    }
-    [PunRPC]
-    void TFGameRoundEndGameRPC()
-    {
-        ResultPnl.SetActive(true);
-
     }
 
     IEnumerator PlayerCountStart()
