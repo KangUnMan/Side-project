@@ -23,15 +23,11 @@ public class TFGunWinner : MonoBehaviour
 
     private void Start()
     {
-      
+        StartCoroutine(PlayerCountStart());
     }
     void Update()
     {
-        if (CountOn != true)
-        {
-            CountOn = true;
-            StartCoroutine(PlayerCountStart());
-        }
+
        if(PlaysCount==0&&PhotonNetwork.IsMasterClient&&count==0)
         {
             TFGameRoundEndGame();
@@ -59,7 +55,7 @@ public class TFGunWinner : MonoBehaviour
 
     IEnumerator PlayerCountStart()
     {
-        yield return new WaitForSeconds(2.0f);
+        yield return new WaitForSeconds(3.0f);
         PlaysCount = PhotonNetwork.CountOfPlayers; //인원수 설정
         Debug.Log(PlaysCount);
     }
