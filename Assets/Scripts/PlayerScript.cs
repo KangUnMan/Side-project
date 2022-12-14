@@ -163,14 +163,6 @@ public class PlayerScript : MonoBehaviourPunCallbacks
                 MyRockHave = false;
                 NotHaveRock();
             }
-            if (Life == 0 && RespawnPossible != false)
-            {
-                RespawnPossible = false;
-                Debug.Log(Life);
-                TFGameOut();
-
-
-            }
             if (Death)
             {
                 RB.velocity = new Vector3();
@@ -327,24 +319,32 @@ public class PlayerScript : MonoBehaviourPunCallbacks
     {
         yield return new WaitForSeconds(2.0f);
         CharDeath();
-        if(RespawnPossible != false)
+        Rollingtimer = 0;
+        if (SceneManager.GetActiveScene().name == "TFGunStage")
         {
-            Rollingtimer = 0;
+            Life--;
+            Debug.Log("목숨 : " + Life);
+            if (Life == 0 && RespawnPossible != false)
+            {
+                RespawnPossible = false;
+                TFGameOut();
+            }
+        }
+        if (RespawnPossible)
+        {
             RespawnAni();
             yield return new WaitForSeconds(3.0f);
             CharRespawn();
             Death = false;
         }
+     
     }
 
    
   
     [PunRPC]
     void DestroyRPC()
-    {   if(SceneManager.GetActiveScene().name == "TFGunStage")
-        {
-            Life--;
-        }
+    {   
         cc.SetActive(false);
     }
 
