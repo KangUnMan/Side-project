@@ -3,7 +3,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class Queue : MonoBehaviour
+public class Queue
 {
     int MAX;
     int front;    //머리 쪽에 위치할 index값, pop할때 참조하는 index
@@ -16,13 +16,17 @@ public class Queue : MonoBehaviour
         MAX = size;
     }
 
+    public int length()
+    {
+        return queue.Length;
+    }
     public bool isEmpty()
     { //queue에 아무것도 들어있지 않은지 판단하는 함수
         return front == rear;
     }
     public bool isFull()
     {    //queue가 가득 차 공간이 없는지 판단하는 함수
-        if (rear == MAX - 1)
+        if (rear == MAX)
         {
             return true;
         }

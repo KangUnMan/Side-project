@@ -21,7 +21,9 @@ public class DeathRunWinner : MonoBehaviour
     Queue queue;
     private void Awake()
     {
+        Debug.Log(PhotonNetwork.CurrentRoom.Players.Count);
         queue = new Queue(PhotonNetwork.CurrentRoom.Players.Count);
+        Debug.Log(queue.size());
     }
     private void Update()
     {
@@ -38,6 +40,7 @@ public class DeathRunWinner : MonoBehaviour
            // winnernickname =other.gameObject.GetComponent<PlayerScript>().nickname;
             count++;
             queue.push(other.gameObject.GetComponent<PlayerScript>().nickname);
+            Debug.Log("Queue push");
             if(count >= PhotonNetwork.CurrentRoom.Players.Count || queue.isFull())
             {
                 DeathRunGameRoundEnd = true;
@@ -58,9 +61,9 @@ public class DeathRunWinner : MonoBehaviour
         while (!queue.isEmpty())
         {
             rank++;
-            message += rank+"등은 "+queue.pop()+"\n";
+            message += rank+"등은 "+queue.pop()+" 님\n";
         }
-       // WinnerNick.SetText(win+"님 우승 축하드립니다!");
+        WinnerNick.SetText(message);
         ResultPnl.SetActive(true);
 
     }
