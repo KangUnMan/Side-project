@@ -4376,6 +4376,8 @@ MonoBehaviour:
   RB: {fileID: 8442915042146774119}
   AN: {fileID: 3494792687996896274}
   SR: {fileID: 7071631735625987465}
+  Death: 0
+  nickname: 
   FierePos: {fileID: 810302077478823443}
   ScoreManager: {fileID: 0}
   Rock: {fileID: 0}

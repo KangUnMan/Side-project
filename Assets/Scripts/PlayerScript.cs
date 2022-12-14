@@ -15,7 +15,8 @@ public class PlayerScript : MonoBehaviourPunCallbacks
     public Rigidbody RB;
     public Animator AN;
     public SpriteRenderer SR;
-    bool Death = false;
+    public bool Death = false;
+    public string nickname;
     bool DeathEventBool = false;
     public Transform FierePos;
     public GameObject ScoreManager;
@@ -34,6 +35,7 @@ public class PlayerScript : MonoBehaviourPunCallbacks
     bool jDown;
     bool RollingKey;
     bool isJump;
+    int Life;
     bool Throwkey;
     bool isRolling;
     bool AttackDelay;
@@ -59,9 +61,10 @@ public class PlayerScript : MonoBehaviourPunCallbacks
     }
     private void Start()
     {   //카메라 따라오기
+        Life = 3;
         tr = GetComponent<Transform>();
         RB.gameObject.GetComponent<Rigidbody>();
-
+        nickname = PV.Owner.NickName;
         if (PV.IsMine)
         {
             cinemachine = GameObject.FindGameObjectWithTag("Follow");
@@ -112,7 +115,7 @@ public class PlayerScript : MonoBehaviourPunCallbacks
                 AN.SetBool("isRun", true);
                 if (jDown && isJump)
                 {
-                    RB.AddForce(Vector3.up * 80, ForceMode.Impulse);
+                    RB.AddForce(Vector3.up * 100, ForceMode.Impulse);
                     AN.SetBool("isJump", true);
                     AN.SetTrigger("doRunJump");
                     isJump = false;
@@ -160,7 +163,10 @@ public class PlayerScript : MonoBehaviourPunCallbacks
                 NotHaveRock();
             }
             score = PhotonNetwork.LocalPlayer.GetScore();
-          
+            if (Death)
+            {
+                RB.velocity = new Vector3();
+            }
         }
     }
 
@@ -199,6 +205,13 @@ public class PlayerScript : MonoBehaviourPunCallbacks
             HandRock.enabled = true;
             MyRockHave = true;
         }
+
+        if(other.tag == "obstacle" &&Death!=true)
+        {
+            Hit();
+        }
+
+     
     }
 
     //점프 메소드
@@ -304,8 +317,10 @@ public class PlayerScript : MonoBehaviourPunCallbacks
   
     [PunRPC]
     void DestroyRPC()
-    {
-        TFGunWinner.EndMyTFGame();
+    {   if(SceneManager.GetActiveScene().name == "TFGunStage")
+        {
+            TFGunWinner.EndMyTFGame();
+        }
         cc.SetActive(false);
     }
 

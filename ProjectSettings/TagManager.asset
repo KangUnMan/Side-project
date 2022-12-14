@@ -10,6 +10,8 @@ TagManager:
   - Rock
   - ItemRock
   - Follow
+  - obstacle
+  - GoldCup
   layers:
   - Default
   - TransparentFX

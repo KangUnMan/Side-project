@@ -19,7 +19,8 @@ public class ChangeRoom : MonoBehaviour
         
     }
 
-    public void OnTFRusltChangeBtn()
+
+    public void OnLobbyChangeBtn()
     {
         if (PhotonNetwork.IsMasterClient) //방장만
         {
