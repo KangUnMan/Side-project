@@ -56,7 +56,9 @@ public class TFGunWinner : MonoBehaviour
     IEnumerator PlayerCountStart()
     {
         yield return new WaitForSeconds(3.0f);
-        PlaysCount = PhotonNetwork.CountOfPlayers; //인원수 설정
+        PlaysCount = PhotonNetwork.CurrentRoom.Players.Count;
+
+
         Debug.Log(PlaysCount);
     }
 }
