@@ -14,7 +14,7 @@ public class RockScript : MonoBehaviourPunCallbacks
 
     private void Awake()
     {
-        GetComponent<Rigidbody>().AddForce(transform.forward * power);
+        GetComponent<Rigidbody>().AddForce(transform.forward * power + transform.up * 1200f); ;
     }
     void Start()
     {
