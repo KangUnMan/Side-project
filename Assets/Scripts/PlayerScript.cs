@@ -35,6 +35,7 @@ public class PlayerScript : MonoBehaviourPunCallbacks
     bool jDown;
     bool RollingKey;
     bool isJump;
+    bool RespawnPossible=true;
     int Life;
     bool Throwkey;
     bool isRolling;
@@ -162,11 +163,19 @@ public class PlayerScript : MonoBehaviourPunCallbacks
                 MyRockHave = false;
                 NotHaveRock();
             }
-            score = PhotonNetwork.LocalPlayer.GetScore();
+            if (Life == 0 && RespawnPossible != false)
+            {
+                RespawnPossible = false;
+                Debug.Log(Life);
+                TFGameOut();
+
+
+            }
             if (Death)
             {
                 RB.velocity = new Vector3();
             }
+
         }
     }
 
@@ -292,6 +301,18 @@ public class PlayerScript : MonoBehaviourPunCallbacks
     {
         HandRock.enabled = false;
     }
+
+    void TFGameOut()
+    {
+        PV.RPC("TFGameOutRPC", RpcTarget.AllBuffered);
+    }
+
+
+    [PunRPC]
+    void TFGameOutRPC()
+    {
+        TFGunWinner.EndMyTFGame();
+    }
     void Respawnfalse()
     {
         PV.RPC("RespawnfalseRPC", RpcTarget.AllBuffered);
@@ -306,11 +327,14 @@ public class PlayerScript : MonoBehaviourPunCallbacks
     {
         yield return new WaitForSeconds(2.0f);
         CharDeath();
-        Rollingtimer = 0;
-        RespawnAni();
-        yield return new WaitForSeconds(3.0f);
-        CharRespawn();
-        Death = false;
+        if(RespawnPossible != false)
+        {
+            Rollingtimer = 0;
+            RespawnAni();
+            yield return new WaitForSeconds(3.0f);
+            CharRespawn();
+            Death = false;
+        }
     }
 
    
@@ -319,7 +343,7 @@ public class PlayerScript : MonoBehaviourPunCallbacks
     void DestroyRPC()
     {   if(SceneManager.GetActiveScene().name == "TFGunStage")
         {
-            TFGunWinner.EndMyTFGame();
+            Life--;
         }
         cc.SetActive(false);
     }
